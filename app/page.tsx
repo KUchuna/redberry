@@ -1,8 +1,10 @@
-export default function Home() {
+import ListingSection from "@/components/listingPage/ListingSection";
+
+export default async function Home() {
+
   return (
     <main>
-      hello world
-      new branch
+      <ListingSection />
     </main>
   );
 }
