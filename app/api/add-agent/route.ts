@@ -8,7 +8,7 @@ export async function POST(req: Request) {
     const surname = formData.get('surname')?.toString();
     const email = formData.get('email')?.toString();
     const phone = formData.get('phone')?.toString();
-    const avatar = formData.get('avatar') as File;
+    const avatar = formData.get('avatar') as File; 
 
     if (!name || !surname || !email || !phone || !avatar) {
       return NextResponse.json(
@@ -24,18 +24,18 @@ export async function POST(req: Request) {
     form.append('phone', phone);
     form.append('avatar', avatar);
 
-    const API_TOKEN = process.env.API_TOKEN;
+    const REDBERRY_API_TOKEN = process.env.REDBERRY_API_TOKEN;
 
-    if (!API_TOKEN) {
+    if (!REDBERRY_API_TOKEN) {
       throw new Error("Missing API token");
     }
 
     const response = await fetch('https://api.real-estate-manager.redberryinternship.ge/api/agents', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${API_TOKEN}`,
+        'Authorization': `Bearer ${REDBERRY_API_TOKEN}`,
       },
-      body: form,
+      body: form, 
     });
 
     const rawResponse = await response.text();
@@ -50,6 +50,7 @@ export async function POST(req: Request) {
 
   } catch (error) {
     const message = error instanceof Error ? error.message : 'An unexpected error occurred';
+    console.error('Error creating agent:', message);
     return NextResponse.json(
       { message: 'Failed to create agent', error: message },
       { status: 500 }

@@ -12,3 +12,8 @@ export async function getRegions() {
   const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/get-regions`)
   return response.json()
 }
+
+export async function getAgents() {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/get-agents`)
+  return response.json()
+}

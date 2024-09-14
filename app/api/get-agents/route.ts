@@ -2,12 +2,12 @@ import { NextResponse } from 'next/server';
 
 export async function GET() {
   try {
-    const API_TOKEN = process.env.API_TOKEN;
+    const REDBERRY_API_TOKEN = process.env.REDBERRY_API_TOKEN;
 
     const response = await fetch("https://api.real-estate-manager.redberryinternship.ge/api/agents", {
         method: "GET",
         headers: {
-          'Authorization': `Bearer ${API_TOKEN}`,
+          'Authorization': `Bearer ${REDBERRY_API_TOKEN}`,
           'Content-Type': 'application/json'
         }
       });
