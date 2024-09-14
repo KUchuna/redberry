@@ -26,9 +26,14 @@ const formSchema = z.object({
         .refine((email) => email.endsWith("@redberry.ge"), {
             message: "ელ-ფოსტა უნდა იყოს @redberry.ge დომეინიდან",
         }),
-    phone: z.string()
-        .min(9, "ტელეფონის ნომერი უნდა შეიცავდეს 9 ციფრს")
-        .max(9, "ტელეფონის ნომერი უნდა შეიცავდეს 9 ციფრს") 
+        phone: z.string()
+        .length(9, "ტელეფონის ნომერი უნდა შეიცავდეს 9 ციფრს")
+        .regex(/^5/, "ტელეფონის ნომერი უნდა იწყებოდეს 5-ით"),
+    avatar: z.any().refine((file) => {
+        return file instanceof File && file.size > 0 && file.size <= 1024 * 1024;
+    }, {
+        message: "სურათი აუცილებელია და მისი ზომა უნდა იყოს 1MB-ზე ნაკლები",
+    }),
 });
 
 
@@ -64,9 +69,9 @@ export default function AgentModal({ onClose }: { onClose: () => void }) {
         const surname = formData.get("surname") as string;
         const email = formData.get("email") as string;
         const phone = formData.get("phone") as string;
-        
+        const avatar = formData.get("avatar")
 
-        const result = formSchema.safeParse({ name, surname, email, phone });
+        const result = formSchema.safeParse({ name, surname, email, phone, avatar });
     
         if (!result.success) {
             const fieldErrors: { [key: string]: string } = {};
@@ -131,7 +136,7 @@ export default function AgentModal({ onClose }: { onClose: () => void }) {
                                 id="name"
                                 className={`border-[1px] ${errors.name ? "border-primary" : "border-[#808A93]"} p-2 rounded-md outline-none`} 
                             />
-                             {errors.name ? <span className="text-red-500 text-sm mt-1">{errors.name}</span> : <span className="flex gap-2"><Image src={checkmark} alt="" />მინიმუმ ორი სიმბოლო</span>}
+                             {errors.name ? <span className="text-primary text-sm mt-1">{errors.name}</span> : <span className="flex gap-2"><Image src={checkmark} alt="" />მინიმუმ ორი სიმბოლო</span>}
                             
                         </div>
                         <div className="flex flex-col">
@@ -142,7 +147,7 @@ export default function AgentModal({ onClose }: { onClose: () => void }) {
                                 id="surname"
                                 className={`border-[1px] ${errors.surname ? "border-primary" : "border-[#808A93]"} p-2 rounded-md outline-none`}  
                             />
-                            {errors.surname ? <span className="text-red-500 text-sm mt-1">{errors.surname}</span> : <span className="flex gap-2"><Image src={checkmark} alt="" />მინიმუმ ორი სიმბოლო</span>}
+                            {errors.surname ? <span className="text-primary text-sm mt-1">{errors.surname}</span> : <span className="flex gap-2"><Image src={checkmark} alt="" />მინიმუმ ორი სიმბოლო</span>}
                         </div>
                         <div className="flex flex-col">
                             <label htmlFor="email" className={`mb-1 font-medium ${errors.email ? "text-primary" : "text-[#021526]"}`}>ელ-ფოსტა *</label>
@@ -152,7 +157,7 @@ export default function AgentModal({ onClose }: { onClose: () => void }) {
                                 id="email" 
                                 className={`border-[1px] ${errors.email ? "border-primary" : "border-[#808A93]"} p-2 rounded-md outline-none`}  
                             />
-                            {errors.email ? <span className="text-red-500 text-sm mt-1">{errors.email}</span> : <span className="flex gap-2"><Image src={checkmark} alt="" />მინიმუმ ორი სიმბოლო</span>}
+                            {errors.email ? <span className="text-primary text-sm mt-1">{errors.email}</span> : <span className="flex gap-2"><Image src={checkmark} alt="" />მინიმუმ ორი სიმბოლო</span>}
                         </div>
                         <div className="flex flex-col">
                             <label htmlFor="phone" className={`mb-1 font-medium ${errors.phone ? "text-primary" : "text-[#021526]"}`}>ტელეფონის ნომერი *</label>
@@ -164,11 +169,11 @@ export default function AgentModal({ onClose }: { onClose: () => void }) {
                                 value={phoneValue}
                                 className={`border-[1px] ${errors.phone ? "border-primary" : "border-[#808A93]"} p-2 rounded-md outline-none`}  
                             />
-                            {errors.phone ? <span className="text-red-500 text-sm mt-1">{errors.phone}</span> : <span className="flex gap-2"><Image src={checkmark} alt="" />მინიმუმ ორი სიმბოლო</span>}
+                            {errors.phone ? <span className="text-primary text-sm mt-1">{errors.phone}</span> : <span className="flex gap-2"><Image src={checkmark} alt="" />მინიმუმ ორი სიმბოლო</span>}
                         </div>
                     </div>
-                    <span className="font-medium text-[#021526] mb-2">ატვირთეთ ფოტო *</span>
-                    <label htmlFor="avatar" className="custom-file-upload "><Image src={preview ? preview : fileUpload} width={preview ? 100 : 24} height={preview ? 90 : 24}alt="" className="max-h-[90px] object-cover"/></label>
+                    <span className={`mb-2 font-medium ${errors.avatar ? "text-primary" : "text-[#021526]"}`}>ატვირთეთ ფოტო *</span>
+                    <label htmlFor="avatar" className={`custom-file-upload border-[2px] border-dashed ${errors.avatar ? "border-primary" : "border-[#2D3648]"}`}><Image src={preview ? preview : fileUpload} width={preview ? 100 : 24} height={preview ? 90 : 24}alt="" className="max-h-[90px] object-cover"/></label>
                     <input 
                         type="file" 
                         name="avatar"
@@ -177,6 +182,7 @@ export default function AgentModal({ onClose }: { onClose: () => void }) {
                         className="border-[1px] border-gray-300 p-2 rounded-md"
                         onChange={handleUpload}
                     />
+                    {errors.avatar && <span className="text-primary text-sm mt-1">{errors.avatar}</span>}
                     <div className="flex gap-8 justify-end mt-24">
                         <button className="text-primary py-2 px-4 rounded-md hover:bg-primary hover:text-white border-[1px] border-primary"
                         type="button" onClick={onClose}>

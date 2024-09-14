@@ -65,7 +65,6 @@ input[type="file"] {
 }
 
 .custom-file-upload {
-    border: 2px dashed #2D3648;
     display: flex;
     justify-content: center;
     align-items: center;
