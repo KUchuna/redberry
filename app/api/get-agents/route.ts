@@ -7,7 +7,7 @@ export async function GET() {
     const response = await fetch("https://api.real-estate-manager.redberryinternship.ge/api/agents", {
         method: "GET",
         headers: {
-          'Authorization': `Bearer ${API_TOKEN}`, // Correct authorization format
+          'Authorization': `Bearer ${API_TOKEN}`,
           'Content-Type': 'application/json'
         }
       });
@@ -20,11 +20,13 @@ export async function GET() {
     const agents = await response.json();
 
     return NextResponse.json({ agents }, { status: 200 });
-  } catch (error: any) {
-    console.error('Fetch Error:', error);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'An unexpected error occurred';
+
+    console.error('Fetch Error:', message);
 
     return NextResponse.json(
-      { message: 'Failed to fetch agents', error: error.message },
+      { message: 'Failed to fetch agents', error: message },
       { status: 500 }
     );
   }

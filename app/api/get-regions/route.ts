@@ -12,11 +12,12 @@ export async function GET() {
     const regions = await response.json();
 
     return NextResponse.json({ regions }, { status: 200 });
-  } catch (error: any) {
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'An unexpected error occurred';
     console.error('Fetch Error:', error);
 
     return NextResponse.json(
-      { message: 'Failed to fetch agents', error: error.message },
+      { message: 'Failed to fetch agents', error: message },
       { status: 500 }
     );
   }

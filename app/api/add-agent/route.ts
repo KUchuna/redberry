@@ -8,7 +8,7 @@ export async function POST(req: Request) {
     const surname = formData.get('surname')?.toString();
     const email = formData.get('email')?.toString();
     const phone = formData.get('phone')?.toString();
-    const avatar = formData.get('avatar') as File; // Assuming avatar is a file
+    const avatar = formData.get('avatar') as File;
 
     if (!name || !surname || !email || !phone || !avatar) {
       return NextResponse.json(
@@ -22,7 +22,7 @@ export async function POST(req: Request) {
     form.append('surname', surname);
     form.append('email', email);
     form.append('phone', phone);
-    form.append('avatar', avatar); // Attach the file directly
+    form.append('avatar', avatar);
 
     const API_TOKEN = process.env.API_TOKEN;
 
@@ -33,9 +33,9 @@ export async function POST(req: Request) {
     const response = await fetch('https://api.real-estate-manager.redberryinternship.ge/api/agents', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${API_TOKEN}`, // Don't manually set Content-Type
+        'Authorization': `Bearer ${API_TOKEN}`,
       },
-      body: form, // Send FormData directly
+      body: form,
     });
 
     const rawResponse = await response.text();
@@ -48,10 +48,10 @@ export async function POST(req: Request) {
     const agent = JSON.parse(rawResponse);
     return NextResponse.json({ agent }, { status: 201 });
 
-  } catch (error: any) {
-    console.error('Error creating agent:', error.message);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'An unexpected error occurred';
     return NextResponse.json(
-      { message: 'Failed to create agent', error: error.message },
+      { message: 'Failed to create agent', error: message },
       { status: 500 }
     );
   }
