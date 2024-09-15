@@ -1,6 +1,6 @@
 "use server"
 
-import { addAgent } from "@/api"
+import { addAgent, addListing } from "@/api"
 import { revalidatePath } from "next/cache";
 
 export async function addAgentAction(formData: FormData) {
@@ -12,3 +12,16 @@ export async function addAgentAction(formData: FormData) {
     revalidatePath("/")
   }
 }
+
+export async function addListingAction(formData: FormData) {
+  try {
+    await addListing(formData);
+  } catch (error) {
+    console.log(error);
+  } finally {
+    revalidatePath("/")
+  }
+}
+
+
+

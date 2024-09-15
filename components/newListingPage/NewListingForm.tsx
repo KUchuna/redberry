@@ -8,6 +8,7 @@ import downArrow from "@/public/assets/downarrow.svg"
 import fileUpload from "@/public/assets/fileupload.svg"
 import AgentModal from "@/components/listingPage/AgentModal";
 import Link from "next/link"
+import { addListingAction } from "@/app/actions"
 
 interface Regions {
     id: number;
@@ -58,7 +59,6 @@ export default function ListingForm({regions, cities, agents}: ListingFormProps)
     const [selectedRegion, setSelectedRegion] = useState<Regions | null>(null)
     const [selectedCity, setSelectedCity] = useState<Cities | null>(null)
     const [selectedAgent, setSelectedAgent] = useState<Agents | null>(null)
-    
 
     const [active, setActive] = useState(false)
     
@@ -100,7 +100,6 @@ export default function ListingForm({regions, cities, agents}: ListingFormProps)
         if (selectedRegion == null) {
             return
         } else {
-            console.log(selectedRegion)
             toggleDropDown("city")
         }
     }
@@ -114,18 +113,57 @@ export default function ListingForm({regions, cities, agents}: ListingFormProps)
         }
     };
 
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+    
+        const form = e.currentTarget as HTMLFormElement;
+        
+        // Assuming selectedRegion, selectedAgent, and selectedCity are states or props
+        const region_id = selectedRegion?.id; // These come from states
+        const agent_id = selectedAgent?.id;
+        const city_id = selectedCity?.id;
+    
+        try {
+
+            const formData = new FormData(form);
+    
+            if (region_id !== undefined) formData.append("region_id", region_id.toString());
+            if (agent_id !== undefined) formData.append("agent_id", agent_id.toString());
+            if (city_id !== undefined) formData.append("city_id", city_id.toString());
+
+            await addListingAction(formData);
+        } catch (error) {
+            alert(`Error: ${error}`);
+        }
+    };
+    
+    
+
+
     return (
-        <form className="text-[#021526] flex flex-col gap-20 w-full">
+        <form className="text-[#021526] flex flex-col gap-20 w-full" onSubmit={handleSubmit}>
             <div className="flex flex-col gap-2">
                 <span className="text-[#1A1A1F] font-[500] text-xl">გარიგების ტიპი</span>
                 <div className="flex gap-20">
                     <div className="flex flex-row-reverse gap-2">
                         <label htmlFor="sale" className="select-none radio-item">იყიდება</label>
-                        <input type="radio" id="sale" name="type" className="radio-button"/>
+                        <input
+                            type="radio"
+                            id="sale"
+                            name="type"
+                            value="0"
+                            className="radio-button"
+                        />
                     </div>
                     <div className="flex flex-row-reverse gap-2">
                         <label htmlFor="rent" className="select-none radio-item">ქირავდება</label>
-                        <input type="radio" id="rent" name="type" className="radio-button"/>
+                        <input
+                            type="radio"
+                            id="rent"
+                            name="type"
+                            value="1"
+                            className="radio-button"
+                        />
                     </div>
                 </div>
             </div>
@@ -136,12 +174,12 @@ export default function ListingForm({regions, cities, agents}: ListingFormProps)
                     <div className="flex w-full gap-5">
                         <div className="flex flex-col w-[50%]">
                             <label htmlFor="address" className="mb-1 font-medium text-[#021526]">მისამართი *</label>
-                            <input type="text" name="address" id="address" className="border-[1px] border-[#808A93] rounded-md outline-none py-2 px-3 h-[2.625rem]"/>
+                            <input type="text" name="address" id="address" className="border-[1px] border-[#808A93] rounded-md outline-none py-2 px-3 h-[2.625rem]" />
                             <span className="flex gap-2 mt-1"><Image src={checkmark} alt="" />მინიმუმ ორი სიმბოლო</span>
                         </div>
                         <div className="flex flex-col w-[50%]">
                             <label htmlFor="mail" className="mb-1 font-medium text-[#021526]">საფოსტო ინდექსი *</label>
-                            <input type="text" name="mail" id="mail" className="border-[1px] border-[#808A93] rounded-md outline-none py-2 px-3 h-[2.625rem]"/>
+                            <input type="text" name="mail" id="mail" className="border-[1px] border-[#808A93] rounded-md outline-none py-2 px-3 h-[2.625rem]" />
                             <span className="flex gap-2 mt-1"><Image src={checkmark} alt="" />მხოლოდ რიცხვები</span>
                         </div>
                     </div>
@@ -207,27 +245,27 @@ export default function ListingForm({regions, cities, agents}: ListingFormProps)
                         <div className="w-full flex gap-5">
                             <div className="flex flex-col w-[50%]">
                                 <label htmlFor="price" className="mb-1 font-medium text-[#021526]">ფასი</label>
-                                <input type="text" name="price" id="price" className="border-[1px] border-[#808A93] rounded-md outline-none py-2 px-3 h-[2.625rem]"/>
+                                <input type="text" name="price" id="price" className="border-[1px] border-[#808A93] rounded-md outline-none py-2 px-3 h-[2.625rem]" />
                                 <span className="flex gap-2 mt-1"><Image src={checkmark} alt="" />მხოლოდ რიცხვები</span>
                             </div>
                             <div className="flex flex-col w-[50%]">
                                 <label htmlFor="area" className="mb-1 font-medium text-[#021526]">ფართობი</label>
-                                <input type="text" name="area" id="area" className="border-[1px] border-[#808A93] rounded-md outline-none py-2 px-3 h-[2.625rem]"/>
+                                <input type="text" name="area" id="area" className="border-[1px] border-[#808A93] rounded-md outline-none py-2 px-3 h-[2.625rem]" />
                                 <span className="flex gap-2 mt-1"><Image src={checkmark} alt="" />მხოლოდ რიცხვები</span>
                             </div>
                         </div>
                         <div className="w-full flex gap-5">
                             <div className="flex flex-col w-[50%]">
-                                <label htmlFor="area" className="mb-1 font-medium text-[#021526]">საძინებლების რაოდენობა</label>
-                                <input type="number" name="area" id="area" className="border-[1px] border-[#808A93] rounded-md outline-none py-2 px-3 h-[2.625rem]"/>
+                                <label htmlFor="bedrooms" className="mb-1 font-medium text-[#021526]">საძინებლების რაოდენობა</label>
+                                <input type="number" name="bedrooms" id="bedrooms" className="border-[1px] border-[#808A93] rounded-md outline-none py-2 px-3 h-[2.625rem]" />
                                 <span className="flex gap-2 mt-1"><Image src={checkmark} alt="" />მხოლოდ რიცხვები</span>
                             </div>
                             <div className="flex flex-col w-[50%]"></div>
                         </div>
                     </div>
                     <div className="flex flex-col w-full -mt-1">
-                        <label htmlFor="area" className="mb-1 font-medium text-[#021526]">აღწერა *</label>
-                        <textarea id="message" name="message" className="border-[1px] border-[#808A93] rounded-md outline-none py-2 px-3 h-[10rem] resize-none"></textarea>
+                        <label htmlFor="description" className="mb-1 font-medium text-[#021526]">აღწერა *</label>
+                        <textarea id="description" name="description" className="border-[1px] border-[#808A93] rounded-md outline-none py-2 px-3 h-[10rem] resize-none" ></textarea>
                         <span className="flex gap-2 mt-1"><Image src={checkmark} alt="" />მინიმუმ 5 სიტყვა</span>
                         
                         <span className={`mb-2 mt-5 font-medium text-[#021526]`}>ატვირთეთ ფოტო *</span>

@@ -39,7 +39,6 @@ export async function POST(req: Request) {
     });
 
     const rawResponse = await response.text();
-    console.log('Raw Response:', rawResponse);
 
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}, Message: ${rawResponse}`);
