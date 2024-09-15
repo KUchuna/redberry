@@ -13,6 +13,11 @@ export async function getRegions() {
   return response.json()
 }
 
+export async function getCities() {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/get-cities`)
+  return response.json()
+}
+
 export async function getAgents() {
   const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/get-agents`, { cache: 'no-store' })
   return response.json()

@@ -1,6 +1,7 @@
 "use server"
 
 import { addAgent } from "@/api"
+import { revalidatePath } from "next/cache";
 
 export async function addAgentAction(formData: FormData) {
   try {
@@ -8,8 +9,6 @@ export async function addAgentAction(formData: FormData) {
   } catch (error) {
     console.log(error);
   } finally {
-    if (typeof window !== 'undefined') {
-      window.location.reload();
-    }
+    revalidatePath("/")
   }
 }

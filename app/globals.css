@@ -207,3 +207,68 @@ input[type="file"] {
     height: 120px;
     border-radius: 8px;
 }
+
+.radio-item {
+    display: inline-flex;
+    align-items: center;
+    column-gap: 10px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.radio-item:not(:last-of-type) {
+    margin-right: 16px;
+}
+
+.radio-button {
+    appearance: none;
+    position: relative;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #000000;
+    border-radius: 9999px;
+    background-color: #ffffff;
+    cursor: pointer;
+}
+
+.radio-button:checked {
+    background-color: transparent;
+}
+
+.radio-button:checked::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    width: 10px;
+    height: 10px;
+    margin: auto;
+    border-radius: 9999px;
+    background-color: #000000;
+}
+
+#region {
+    --sb-track-color: #ededed;
+    --sb-thumb-color: #dd5502;
+    --sb-size: 0px;
+}
+
+#region::-webkit-scrollbar {
+width: var(--sb-size);
+}
+
+#region::-webkit-scrollbar-track {
+background: var(--sb-track-color);
+border-radius: 50px;
+}
+
+#region::-webkit-scrollbar-thumb {
+background: var(--sb-thumb-color);
+border-radius: 50px;
+}
+
+@supports not selector(::-webkit-scrollbar) {
+#region {
+    scrollbar-color: var(--sb-thumb-color)
+                    var(--sb-track-color);
+}
+}

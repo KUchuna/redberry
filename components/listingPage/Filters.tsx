@@ -28,12 +28,14 @@ export default function Filters({regions}: FiltersProps) {
     const toggleFilter = (filter: string) => {
       setActiveFilter(filter === activeFilter ? null : filter);
     };
+    
     const filterItems = [
         { id: "region", label: "რეგიონი"},
         { id: "price", label: "საფასო კატეგორია"},
         { id: "area", label: "ფართობი"},
         { id: "bedrooms", label: "საძინებლების რაოდენობა"},
       ];
+
     return (
       <div className="relative">
         <ul className="flex border-[1px] border-[#DBDBDB] w-full p-[0.375rem] gap-6 rounded-[10px] select-none">
