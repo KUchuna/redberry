@@ -2,7 +2,7 @@
 
 import checkmark from "@/public/assets/checkmark.svg"
 import Image from "next/image"
-import { useRef, useState } from "react"
+import { useState } from "react"
 import {motion} from "framer-motion"
 import downArrow from "@/public/assets/downarrow.svg"
 import fileUpload from "@/public/assets/fileupload.svg"
@@ -38,7 +38,7 @@ const container = {
         height: 0,
     },
     visible: {
-        height: 300,
+        height: 200,
         transition: {
         duration: 0.1,
         delayChildren: 0.1,
