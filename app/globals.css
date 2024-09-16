@@ -3,144 +3,152 @@
 @tailwind utilities;
 
 @font-face {
-    font-family: 'FiraGO Book';
-    src: url('../public/fonts/FiraGO-Book.woff2') format('woff2'),
-        url('../public/fonts/FiraGO-Book.woff') format('woff');
+    font-family: 'Helvetica Neue';
+    src: url('../public/fonts/HelveticaNeue-MediumItalic.woff2') format('woff2'),
+        url('../public/fonts/HelveticaNeue-MediumItalic.woff') format('woff');
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Helvetica Neue';
+    src: url('../public/fonts/HelveticaNeue-BoldItalic.woff2') format('woff2'),
+        url('../public/fonts/HelveticaNeue-BoldItalic.woff') format('woff');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Helvetica Neue';
+    src: url('../public/fonts/HelveticaNeue-Italic.woff2') format('woff2'),
+        url('../public/fonts/HelveticaNeue-Italic.woff') format('woff');
     font-weight: normal;
-    font-style: normal;
+    font-style: italic;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'FiraGO';
-    src: url('../public/fonts/FiraGO-ExtraLight.woff2') format('woff2'),
-        url('../public/fonts/FiraGO-ExtraLight.woff') format('woff');
-    font-weight: 200;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'FiraGO Four';
-    src: url('../public/fonts/FiraGO-Four.woff2') format('woff2'),
-        url('../public/fonts/FiraGO-Four.woff') format('woff');
-    font-weight: 100;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'FiraGO Eight';
-    src: url('../public/fonts/FiraGO-Eight.woff2') format('woff2'),
-        url('../public/fonts/FiraGO-Eight.woff') format('woff');
-    font-weight: 100;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'FiraGO';
-    src: url('../public/fonts/FiraGO-ExtraBold.woff2') format('woff2'),
-        url('../public/fonts/FiraGO-ExtraBold.woff') format('woff');
-    font-weight: bold;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'FiraGO';
-    src: url('../public/fonts/FiraGO-Bold.woff2') format('woff2'),
-        url('../public/fonts/FiraGO-Bold.woff') format('woff');
-    font-weight: bold;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'FiraGO';
-    src: url('../public/fonts/FiraGO-Light.woff2') format('woff2'),
-        url('../public/fonts/FiraGO-Light.woff') format('woff');
-    font-weight: 300;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'FiraGO';
-    src: url('../public/fonts/FiraGO-Heavy.woff2') format('woff2'),
-        url('../public/fonts/FiraGO-Heavy.woff') format('woff');
+    font-family: 'Helvetica Neue';
+    src: url('../public/fonts/HelveticaNeue-HeavyItalic.woff2') format('woff2'),
+        url('../public/fonts/HelveticaNeue-HeavyItalic.woff') format('woff');
     font-weight: 900;
-    font-style: normal;
+    font-style: italic;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'FiraGO Hair';
-    src: url('../public/fonts/FiraGO-Hair.woff2') format('woff2'),
-        url('../public/fonts/FiraGO-Hair.woff') format('woff');
-    font-weight: 100;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'FiraGO';
-    src: url('../public/fonts/FiraGO-Thin.woff2') format('woff2'),
-        url('../public/fonts/FiraGO-Thin.woff') format('woff');
-    font-weight: 100;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'FiraGO Two';
-    src: url('../public/fonts/FiraGO-Two.woff2') format('woff2'),
-        url('../public/fonts/FiraGO-Two.woff') format('woff');
-    font-weight: 100;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'FiraGO';
-    src: url('../public/fonts/FiraGO-Medium.woff2') format('woff2'),
-        url('../public/fonts/FiraGO-Medium.woff') format('woff');
+    font-family: 'Helvetica Neue';
+    src: url('../public/fonts/HelveticaNeue-Medium.woff2') format('woff2'),
+        url('../public/fonts/HelveticaNeue-Medium.woff') format('woff');
     font-weight: 500;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'FiraGO';
-    src: url('../public/fonts/FiraGO-Regular.woff2') format('woff2'),
-        url('../public/fonts/FiraGO-Regular.woff') format('woff');
-    font-weight: normal;
+    font-family: 'Helvetica Neue';
+    src: url('../public/fonts/HelveticaNeue-LightItalic.woff2') format('woff2'),
+        url('../public/fonts/HelveticaNeue-LightItalic.woff') format('woff');
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Helvetica Neue';
+    src: url('../public/fonts/HelveticaNeue-Black.woff2') format('woff2'),
+        url('../public/fonts/HelveticaNeue-Black.woff') format('woff');
+    font-weight: 900;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'FiraGO';
-    src: url('../public/fonts/FiraGO-SemiBold.woff2') format('woff2'),
-        url('../public/fonts/FiraGO-SemiBold.woff') format('woff');
-    font-weight: 600;
+    font-family: 'Helvetica Neue';
+    src: url('../public/fonts/HelveticaNeue-Light.woff2') format('woff2'),
+        url('../public/fonts/HelveticaNeue-Light.woff') format('woff');
+    font-weight: 300;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'FiraGO';
-    src: url('../public/fonts/FiraGO-UltraLight.woff2') format('woff2'),
-        url('../public/fonts/FiraGO-UltraLight.woff') format('woff');
+    font-family: 'Helvetica Neue';
+    src: url('../public/fonts/HelveticaNeue-Bold.woff2') format('woff2'),
+        url('../public/fonts/HelveticaNeue-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Helvetica Neue';
+    src: url('../public/fonts/HelveticaNeue-Heavy.woff2') format('woff2'),
+        url('../public/fonts/HelveticaNeue-Heavy.woff') format('woff');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Helvetica Neue';
+    src: url('../public/fonts/HelveticaNeue-BlackItalic.woff2') format('woff2'),
+        url('../public/fonts/HelveticaNeue-BlackItalic.woff') format('woff');
+    font-weight: 900;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Helvetica Neue';
+    src: url('../public/fonts/HelveticaNeue-ThinItalic.woff2') format('woff2'),
+        url('../public/fonts/HelveticaNeue-ThinItalic.woff') format('woff');
+    font-weight: 100;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Helvetica Neue';
+    src: url('../public/fonts/HelveticaNeue-Thin.woff2') format('woff2'),
+        url('../public/fonts/HelveticaNeue-Thin.woff') format('woff');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Helvetica Neue';
+    src: url('../public/fonts/HelveticaNeue-UltraLightItalic.woff2') format('woff2'),
+        url('../public/fonts/HelveticaNeue-UltraLightItalic.woff') format('woff');
+    font-weight: 200;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Helvetica Neue';
+    src: url('../public/fonts/HelveticaNeue-UltraLight.woff2') format('woff2'),
+        url('../public/fonts/HelveticaNeue-UltraLight.woff') format('woff');
     font-weight: 200;
     font-style: normal;
     font-display: swap;
 }
 
+@font-face {
+    font-family: 'Helvetica Neue';
+    src: url('../public/fonts/HelveticaNeue-Roman.woff2') format('woff2'),
+        url('../public/fonts/HelveticaNeue-Roman.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
 
 
 * {
-    font-family: "FiraGO";
+    font-family: "Helvetica Neue";
 }
 
 
