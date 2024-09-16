@@ -10,30 +10,8 @@ import AgentModal from "@/components/listingPage/AgentModal";
 import Link from "next/link"
 import { addListingAction } from "@/app/actions"
 import { z } from "zod"
+import { Agents, Cities, ListingFormProps, Regions } from "@/types"
 
-interface Regions {
-    id: number;
-    name: string;
-}
-
-interface Cities {
-    id: number;
-    name: string;
-    region_id: number;
-}
-
-interface Agents {
-    id: number;
-    name: string;
-    surname: string;
-    avatar: string;
-}
-
-interface ListingFormProps {
-    regions: Regions[];
-    cities: Cities[];
-    agents: Agents[];
-}
 
 const container = {
     hidden: { 

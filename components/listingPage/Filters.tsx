@@ -5,21 +5,13 @@ import Image from "next/image";
 import uparrow from "@/public/assets/uparrow.svg";
 import downarrow from "@/public/assets/downarrow.svg";
 import { motion } from "framer-motion";
+import { FiltersProps, Region } from "@/types";
 
 
 const dropdownVariants = {
   hidden: { opacity: 0, y: -10 },
   visible: { opacity: 1, y: 0 },
 };
-
-interface Region {
-    id: number;
-    name: string;
-}
-
-interface FiltersProps {
-    regions: Region[]
-}
 
 export default function Filters({regions}: FiltersProps) {
 

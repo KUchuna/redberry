@@ -43,10 +43,6 @@ export async function addListing(formData: FormData) {
   }
 }
 
-
-
-
-
 export async function getRegions() {
   const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/get-regions`)
   return response.json()
@@ -59,5 +55,10 @@ export async function getCities() {
 
 export async function getAgents() {
   const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/get-agents`, { cache: 'no-store' })
+  return response.json()
+}
+
+export async function getListings() {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/get-listings`, { cache: 'no-store' })
   return response.json()
 }
