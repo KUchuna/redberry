@@ -6,7 +6,7 @@ import useEmblaCarousel from "embla-carousel-react"
 
 export default function ListingsCarousel({listings}: ListingCardsSectionProps) {
 
-    const [emblaRef, emblaApi] = useEmblaCarousel({loop: true})
+    const [emblaRef] = useEmblaCarousel({loop: true})
 
     return (
         <section className="pb-20 px-40 w-full flex justify-start">
