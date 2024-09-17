@@ -21,6 +21,7 @@ export interface Listings {
     is_rental: number;
     city_id: number;
     city: City;
+    region_id?: number;
 }
 
 export interface ListingCardProps {
