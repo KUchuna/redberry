@@ -6,7 +6,7 @@ import { useState } from "react"
 import {motion} from "framer-motion"
 import downArrow from "@/public/assets/downarrow.svg"
 import fileUpload from "@/public/assets/fileupload.svg"
-import AgentModal from "@/components/listingPage/AgentModal";
+import AgentModal from "@/components/listingsPage/AgentModal";
 import Link from "next/link"
 import { addListingAction } from "@/app/actions"
 import { z } from "zod"

@@ -4,7 +4,7 @@ import Link from "next/link"
 
 export default function Header() {
     return (
-        <header className="py-10 flex justify-center border-b-[1px] border-[#DBDBDB] px-40">
+        <header className="py-10 flex justify-start border-b-[1px] border-[#DBDBDB] px-40">
             <div className="max-w-[1920px] w-full">
                 <Link href="/">
                     <Image src={logo} alt="Redberry" />

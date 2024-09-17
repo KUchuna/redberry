@@ -27,6 +27,16 @@ export interface ListingCardProps {
     listing: Listings;
 }
 
+interface ListingsForListingPage extends Listings {
+    created_at: string;
+    description: string
+    agent: Agents
+}
+
+export interface ListingInfoProps {
+    listing: ListingsForListingPage
+}
+
 export interface ListingCardsSectionProps {
     listings: Listings[]
 }
@@ -56,6 +66,8 @@ export interface Agents {
     name: string;
     surname: string;
     avatar: string;
+    email?: string;
+    phone?: string;
 }
 
 export interface ListingFormProps {

@@ -1,4 +1,4 @@
-import ListingSection from "@/components/listingPage/ListingSection";
+import ListingSection from "@/components/listingsPage/ListingSection";
 
 export default async function Home() {
 
