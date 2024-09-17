@@ -55,7 +55,7 @@ export default function Filters({regions}: FiltersProps) {
            initial="hidden"
            animate="visible"
            transition={{ duration: 0.3 }}
-           className="absolute left-0 mt-2 border p-4 w-fit rounded-[10px] filter"
+           className="absolute left-0 mt-2 border p-4 w-fit rounded-[10px] z-20 bg-white"
          >
             <span className="font-bold text-lg">რეგიონის მიხედვით</span>
             <div className="grid grid-cols-3 gap-x-12 gap-y-4 py-6">
@@ -83,7 +83,7 @@ export default function Filters({regions}: FiltersProps) {
             initial="hidden"
             animate="visible"
             transition={{ duration: 0.3 }}
-            className="absolute left-0 mt-2 border p-4 w-fit rounded-[10px] filter"
+            className="absolute left-0 mt-2 border p-4 w-fit rounded-[10px] z-20 bg-white"
             >
                 <span className="font-bold text-lg">ფასის მიხედვით</span>
                 <div className="flex gap-4 py-6">
@@ -107,7 +107,7 @@ export default function Filters({regions}: FiltersProps) {
             initial="hidden"
             animate="visible"
             transition={{ duration: 0.3 }}
-            className="absolute left-0 mt-2 border p-4 w-fit rounded-[10px] filter"
+            className="absolute left-0 mt-2 border p-4 w-fit rounded-[10px] z-20 bg-white"
             >
             <span className="font-bold text-lg">ფართობის მიხედვით</span>
                 <div className="flex gap-4 py-6">
@@ -131,7 +131,7 @@ export default function Filters({regions}: FiltersProps) {
             initial="hidden"
             animate="visible"
             transition={{ duration: 0.3 }}
-            className="absolute flex flex-col items-start gap-6 left-0 mt-2 border p-4 w-fit rounded-[10px] filter"
+            className="absolute flex flex-col items-start gap-6 left-0 mt-2 border p-4 w-fit rounded-[10px] z-20 bg-white"
             >
             <span className="font-bold text-lg">საძინებლების რაოდენობა</span>
                 <div className="flex justify-center items-center w-[20%] border-[1px] border-[#808A93] rounded-md py-3 px-3">

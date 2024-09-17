@@ -62,3 +62,8 @@ export async function getListings() {
   const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/get-listings`, { cache: 'no-store' })
   return response.json()
 }
+
+export async function getListing(id: string) {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/get-listing${id}`, { cache: 'no-store' })
+  return response.json()
+}
