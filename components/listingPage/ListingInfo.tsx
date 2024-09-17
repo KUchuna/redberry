@@ -25,12 +25,14 @@ export default function ListingInfo({listing}: ListingInfoProps) {
                 <Link href="/">
                     <Image src={back} alt="" />
                 </Link>
-                <div className="flex w-full justify-start items-start gap-16">
-                    <div className="w-[50%] overflow-hidden flex flex-col items-end gap-3">
-                        <Image src={listing.image} alt="" width={100} height={100} unoptimized className="rounded-t-[14px] w-full h-full"/>
+                <div className="flex w-full justify-start items-start gap-16 max-h-[700px] min-h-[700px] h-full">
+                    <div className="w-[50%] justify-between h-full overflow-hidden flex flex-col items-end gap-3">
+                        <div className="h-full overflow-hidden w-full">
+                            <Image src={listing.image} alt="" width={100} height={100} unoptimized className="rounded-t-[14px] w-full h-full object-cover"/>
+                        </div>
                         <span className="text-[#808A93]">გამოქვეყნების თარიღი {formattedDate}</span>
                     </div>
-                    <div className="flex flex-col w-[30%]">
+                    <div className="flex flex-col w-[30%] h-full">
                         <span className="font-bold text-[#021526] text-5xl">{formattedPrice} ₾</span>
                         <div className="flex flex-col gap-4 mt-6 mb-10">
                             <span className="text-[#021526B2] flex items-center gap-1 text-2xl"><Image src={location} alt="" /> {listing.address}</span>
@@ -41,7 +43,7 @@ export default function ListingInfo({listing}: ListingInfoProps) {
                         <p className="text-[#808A93] text-lg mb-12">
                             {listing.description}
                         </p>
-                        <div className="border border-[#DBDBDB] rounded-[8px] py-6 px-5 w-full">
+                        <div className="border border-[#DBDBDB] rounded-[8px] py-6 px-5 w-full mt-auto">
                             <div className="flex gap-4 items-center mb-4">
                                 <div className="w-20 h-20 overflow-hidden rounded-full flex justify-center items-center">
                                     <Image src={listing.agent.avatar} alt="" width={72} height={72} className="rounded-full object-cover w-full h-full"/>
