@@ -30,9 +30,12 @@ const formSchema = z.object({
         .length(9, "ტელეფონის ნომერი უნდა შეიცავდეს 9 ციფრს")
         .regex(/^5/, "ტელეფონის ნომერი უნდა იწყებოდეს 5-ით"),
     avatar: z.any().refine((file) => {
-        return file instanceof File && file.size > 0 && file.size <= 1024 * 1024;
+        return file instanceof File && 
+                   file.size > 0 && 
+                   file.size <= 1024 * 1024 && 
+                   (file.type === "image/png" || file.type === "image/jpeg");
     }, {
-        message: "სურათი აუცილებელია და მისი ზომა უნდა იყოს 1MB-ზე ნაკლები",
+            message: "სურათი აუცილებელია, მისი ზომა უნდა იყოს 1MB-ზე ნაკლები. ფორმატი მხოლოდ PNG ან JPG",
     }),
 });
 
@@ -178,7 +181,7 @@ export default function AgentModal({ onClose }: { onClose: () => void }) {
                         type="file" 
                         name="avatar"
                         id="avatar" 
-                        accept="image/*" 
+                        accept=".png, .jpg, .jpeg"
                         className="border-[1px] border-gray-300 p-2 rounded-md"
                         onChange={handleUpload}
                     />

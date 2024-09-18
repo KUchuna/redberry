@@ -1,7 +1,5 @@
 import { getListings, getRegions } from "@/api";
-import Filters from "./Filters";
-import ListingButtons from "./ListingButtons";
-import ListingCardsSection from "./ListingCardsSection";
+import ListingShared from "./ListingShared";
 
 export default async function ListingSection() {
 
@@ -11,13 +9,8 @@ export default async function ListingSection() {
     return (
         <section className="py-20 px-40 w-full flex justify-center">
             <div className="max-w-[1920px] flex flex-col justify-between items-center w-full">
-                <div className="flex w-full justify-between">
-                    <Filters 
-                        regions={regionsData.regions}
-                    />
-                    <ListingButtons />
-                </div>
-                <ListingCardsSection 
+                <ListingShared 
+                    regions={regionsData.regions}
                     listings={listingsData.listings}
                 />
             </div>

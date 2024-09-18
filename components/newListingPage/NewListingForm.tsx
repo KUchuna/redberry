@@ -83,11 +83,14 @@ const formSchema = z.object({
         .refine((value) => value !== null, {
             message: "ქალაქის ID არ უნდა იყოს ცარიელი",
         }),
-    image: z.any().refine((file) => {
-        return file instanceof File && file.size > 0 && file.size <= 1024 * 1024;
-    }, {
-        message: "სურათი აუცილებელია და მისი ზომა უნდა იყოს 1MB-ზე ნაკლები",
-    }),
+        image: z.any().refine((file) => {
+            return file instanceof File && 
+                   file.size > 0 && 
+                   file.size <= 1024 * 1024 && 
+                   (file.type === "image/png" || file.type === "image/jpeg");
+        }, {
+            message: "სურათი აუცილებელია, მისი ზომა უნდა იყოს 1MB-ზე ნაკლები. ფორმატი მხოლოდ PNG ან JPG",
+        }),
 });
 
 
@@ -362,7 +365,7 @@ export default function ListingForm({regions, cities, agents}: ListingFormProps)
                                 type="file" 
                                 name="image"
                                 id="image" 
-                                accept="image/*" 
+                                accept=".png, .jpg, .jpeg"
                                 className="border-[1px] border-gray-300 p-2 rounded-md"
                                 onChange={handleUpload}
                             />

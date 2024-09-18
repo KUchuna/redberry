@@ -4,14 +4,17 @@ import { ListingCardsSectionProps } from "@/types"
 import ListingCard from "../listingsPage/ListingCard"
 import useEmblaCarousel from "embla-carousel-react"
 import { motion } from "framer-motion"
-import { useCallback } from "react"
+import { useCallback, useEffect, useState } from "react"
 import Image from "next/image"
 import arrowr from "@/public/assets/arrowr.svg"
+import { EmblaCarouselType } from "embla-carousel"
 
 export default function ListingsCarousel({listings}: ListingCardsSectionProps) {
 
     const [emblaRef, emblaApi] = useEmblaCarousel({loop: true})
-
+    const [prevBtnDisabled, setPrevBtnDisabled] = useState(true)
+    const [nextBtnDisabled, setNextBtnDisabled] = useState(false)
+    
     const scrollPrev = useCallback(() => {
         if (emblaApi) emblaApi.scrollPrev()
       }, [emblaApi])
@@ -20,15 +23,27 @@ export default function ListingsCarousel({listings}: ListingCardsSectionProps) {
         if (emblaApi) emblaApi.scrollNext()
       }, [emblaApi])
 
+      const onSelect = useCallback((emblaApi: EmblaCarouselType) => {
+        setPrevBtnDisabled(!emblaApi.canScrollPrev())
+        setNextBtnDisabled(!emblaApi.canScrollNext())
+      }, [])
+    
+      useEffect(() => {
+        if (!emblaApi) return
+    
+        onSelect(emblaApi)
+        emblaApi.on('reInit', onSelect).on('select', onSelect)
+      }, [emblaApi, onSelect])
+
+
     return (
         <section className="pb-20 px-40 w-full flex justify-start">
             <div className="max-w-[1920px] flex flex-col justify-start items-start w-full gap-7 relative">
                 <h1 className="font-bold text-3xl">ბინები მსგავს ლოკაციაზე</h1>
                 <motion.button 
-                    className="bg-primary rounded-full p-[12px] absolute top-[44%] translate-y-[-44%] left-[-5%] z-10" 
+                    className={`bg-primary rounded-full p-[12px] absolute top-[50%] translate-y-[-50%] left-[-5%] z-10 ${prevBtnDisabled ? "bg-[#efb797] pointer-events-none" : "bg-primary-light"}`} 
                     onClick={scrollPrev}
-                    whileTap={{scale: 0.9}}
-                    whileHover={{scale: 1.1}}
+                    disabled={prevBtnDisabled}
                     >
                         <Image src={arrowr} alt="Next" className="rotate-[180deg]"/>
                 </motion.button>
@@ -49,10 +64,9 @@ export default function ListingsCarousel({listings}: ListingCardsSectionProps) {
                     <p>მსგავსი სახლები არ მოიძებნა</p>
                 }
                 <motion.button 
-                        className="bg-primary rounded-full p-[12px] absolute top-[40%] translate-y-[-40%] right-[-5%] z-10" 
+                        className={`bg-primary rounded-full p-[12px] absolute top-[50%] translate-y-[-50%] right-[-5%] z-10 ${nextBtnDisabled ? "bg-[#efb797] pointer-events-none" : "bg-primary-light"}`} 
                         onClick={scrollNext}
-                        whileTap={{scale: 0.9}}
-                        whileHover={{scale: 1.1}}
+                        disabled={nextBtnDisabled}
                         >
                         <Image src={arrowr} alt="Next"/>
                 </motion.button>

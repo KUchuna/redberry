@@ -40,6 +40,11 @@ export interface ListingInfoProps {
 
 export interface ListingCardsSectionProps {
     listings: Listings[]
+    activeFilters?: FiltersInterface | undefined
+}
+
+export interface ListingSharedProps extends FiltersProps {
+    listings: Listings[];
 }
 
 export interface Region {
@@ -48,7 +53,7 @@ export interface Region {
 }
 
 export interface FiltersProps {
-    regions: Region[]
+    regions: Region[];
 }
 
 export interface Regions {
@@ -76,3 +81,12 @@ export interface ListingFormProps {
     cities: Cities[];
     agents: Agents[];
 }
+
+export interface FiltersInterface {
+    bedrooms?: string;
+    regions?: string[];
+    minPrice?: string;
+    maxPrice?: string;
+    minArea?: string;
+    maxArea?: string;
+};
