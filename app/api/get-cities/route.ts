@@ -17,7 +17,7 @@ export async function GET() {
     console.error('Fetch Error:', error);
 
     return NextResponse.json(
-      { message: 'Failed to fetch agents', error: message },
+      { message: 'Failed to fetch cities', error: message },
       { status: 500 }
     );
   }

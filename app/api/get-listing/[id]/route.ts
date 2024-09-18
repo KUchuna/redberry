@@ -31,7 +31,7 @@ export async function GET(request: NextRequest) {
     console.error('Fetch Error:', message);
 
     return NextResponse.json(
-      { message: 'Failed to fetch agents', error: message },
+      { message: 'Failed to fetch listings', error: message },
       { status: 500 }
     );
   }

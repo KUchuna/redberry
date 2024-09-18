@@ -1,6 +1,6 @@
 "use server"
 
-import { addAgent, addListing } from "@/api"
+import { addAgent, addListing, deleteListing } from "@/api"
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
@@ -25,5 +25,13 @@ export async function addListingAction(formData: FormData) {
   }
 }
 
-
-
+export async function deleteListingAction(id: number){
+  try {
+    await deleteListing(id)
+  } catch (error) {
+    console.log(error)
+  } finally {
+    revalidatePath('/listings')
+    redirect('/')
+  }
+}

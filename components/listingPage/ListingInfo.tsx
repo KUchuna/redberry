@@ -1,3 +1,5 @@
+"use client"
+
 import { ListingInfoProps } from "@/types";
 import Image from "next/image";
 import location from "@/public/assets/location.svg"
@@ -8,6 +10,7 @@ import email from "@/public/assets/email.svg"
 import phone from "@/public/assets/phone.svg"
 import back from "@/public/assets/back.svg"
 import Link from "next/link";
+import { deleteListingAction } from "@/app/actions";
 
 export default function ListingInfo({listing}: ListingInfoProps) {
 
@@ -18,6 +21,10 @@ export default function ListingInfo({listing}: ListingInfoProps) {
     const formattedPrice = new Intl.NumberFormat('en-US').format(listing.price);
 
     const formattedPhoneNumber = listing.agent.phone?.replace(/(\d{3})(\d{3})(\d{3})/, "$1 $2 $3");
+
+    async function handleDelete(id:number) {
+        await deleteListingAction(id)
+    }
 
     return (
         <section className="py-20 px-40 w-full flex justify-start">
@@ -56,8 +63,12 @@ export default function ListingInfo({listing}: ListingInfoProps) {
                             <div>
                                 <span className="text-[#808A93] flex gap-1"><Image src={email} alt="" /> {listing.agent.email}</span>
                                 <span className="text-[#808A93] flex gap-1"><Image src={phone} alt="" /> {formattedPhoneNumber}</span>
-                                
                             </div>
+                        </div>
+                        <div className="mt-5">
+                            <button className="border border-[#676E76] text-[#808A93] hover:text-white hover:bg-[#808A93] rounded-[8px] p-[0.625rem]" onClick={() => handleDelete(listing.id)}>
+                                ლისტინგის წაშლა
+                            </button>
                         </div>
                     </div>
                 </div>    
