@@ -1,5 +1,5 @@
 "use client"
-
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import uparrow from "@/public/assets/uparrow.svg";
@@ -8,6 +8,53 @@ import { motion } from "framer-motion";
 import { FiltersProps, Region } from "@/types";
 import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
+import { z } from "zod";
+
+
+const filterSchema = z.object({
+  minPrice: z
+    .union([
+      z.coerce.number({ invalid_type_error: "მინიმალური ფასი უნდა იყოს რიცხვი" })
+      .nonnegative({ message: "მინიმალური ფასი უნდა იყოს 0-ზე მეტი" }),
+      z.undefined()
+    ]),
+  maxPrice: z
+    .union([
+      z.coerce.number({ invalid_type_error: "მაქსიმალური ფასი უნდა იყოს რიცხვი" })
+      .nonnegative({ message: "მაქსიმალური ფასი უნდა იყოს 0-ზე მეტი" }),
+      z.undefined()
+    ]),
+  minArea: z
+    .union([
+      z.coerce.number({ invalid_type_error: "მინიმალური ფართობი უნდა იყოს რიცხვი" })
+      .nonnegative({ message: "მინიმალური ფართობი უნდა იყოს 0-ზე მეტი" }),
+      z.undefined()
+    ]),
+  maxArea: z
+    .union([
+      z.coerce.number({ invalid_type_error: "მაქსიმალური ფართობი უნდა იყოს რიცხვი" })
+      .nonnegative({ message: "მაქსიმალური ფართობი უნდა იყოს 0-ზე მეტი" }),
+      z.undefined()
+    ])
+}).refine((data) => {
+  if (data.minPrice !== undefined && data.maxPrice !== undefined) {
+    return data.minPrice <= data.maxPrice;
+  }
+  return true;
+}, {
+  message: "მინიმალური ფასი არ შეიძლება იყოს უფრო დიდი ვიდრე მაქსიმალური ფასი",
+  path: ["minPrice"],
+}).refine((data) => {
+  if (data.minArea !== undefined && data.maxArea !== undefined) {
+    return data.minArea <= data.maxArea;
+  }
+  return true;
+}, {
+  message: "მინიმალური ფართობი არ შეიძლება იყოს უფრო დიდი ვიდრე მაქსიმალური ფართობი",
+  path: ["minArea"],
+});
+
+
 
 
 const dropdownVariants = {
@@ -21,6 +68,7 @@ export default function Filters({regions}: FiltersProps) {
 
   const toggleFilter = (filter: string) => {
     setActiveFilter(filter === activeFilter ? null : filter);
+    setErrors(null)
   };
   
   const filterItems = [
@@ -38,11 +86,11 @@ export default function Filters({regions}: FiltersProps) {
   });
 
 
-  const [minPrice, setMinPrice] = useState<string | null>(searchParams.get('minPrice') || '');
-  const [maxPrice, setMaxPrice] = useState<string | null>(searchParams.get('maxPrice') || '');
+  const [minPrice, setMinPrice] = useState<any>(searchParams.get('minPrice') || '');
+  const [maxPrice, setMaxPrice] = useState<any>(searchParams.get('maxPrice') || '');
   
-  const [minArea, setMinArea] = useState<string | null>(searchParams.get('minArea') || '');
-  const [maxArea, setMaxArea] = useState<string | null>(searchParams.get('maxArea') || '');
+  const [minArea, setMinArea] = useState<any>(searchParams.get('minArea') || '');
+  const [maxArea, setMaxArea] = useState<any>(searchParams.get('maxArea') || '');
 
   const [bedrooms, setBedrooms] = useState<string | null>(searchParams.get('bedrooms') || '')
 
@@ -85,11 +133,27 @@ export default function Filters({regions}: FiltersProps) {
     setBedrooms(e.target.value);
   };
 
+  const [errors, setErrors] = useState<{[key: string]: string } | null>({})
 
 const handleSubmit = (e: React.FormEvent) => {
   
   e.preventDefault();
+
   const params = new URLSearchParams(searchParams.toString());
+
+  const result = filterSchema.safeParse({ minPrice, maxPrice, minArea, maxArea });
+
+  if (!result.success) {
+    const fieldErrors: { [key: string]: string } = {};
+    result.error.errors.forEach((error) => {
+        if (error.path[0]) {
+            fieldErrors[error.path[0]] = error.message;
+        }
+    });
+    setErrors(fieldErrors);
+    return
+  }
+
 
   if (selectedRegions.length > 0) {
     params.set('regions', selectedRegions.join(','));
@@ -199,18 +263,41 @@ const handleSubmit = (e: React.FormEvent) => {
             className="absolute left-0 mt-2 border p-4 w-fit rounded-[10px] z-20 bg-white"
             >
                 <span className="font-bold text-lg">ფასის მიხედვით</span>
-                <div className="flex gap-4 py-6">
-                    <div className="border-[1px] border-[#808A93] rounded-md py-3 px-2">
-                        <input type="text" className="outline-none rounded-md" placeholder="დან" onChange={handleMinPriceChange}/>
-                        ₾
+                  <div className="flex gap-4 py-6">
+                    <div className="flex flex-col gap-6">
+                      <div className={`border-[1px] ${errors?.minPrice ? "border-primary" : "border-[#808A93]"} rounded-md py-3 px-2 relative mb-7`}>
+                          <input type="number" className="outline-none rounded-md" placeholder="დან" onChange={handleMinPriceChange} value={minPrice}/>
+                          ₾
+                          {errors?.minPrice &&
+                            <span className="absolute text-primary w-full left-0 bottom-0 translate-y-[102%]">მინიმალური ფასი უნდა იყოს მაქსიმალურზე ნაკლები</span>
+                          }
+                      </div>
+                      <span className="text-[#021526] font-[500]">მინ. ფასი</span>
+                      <ul className="flex flex-col gap-2 items-start">
+                        <li className="cursor-pointer" onClick={() => setMinPrice("50000")}>50,000 ₾</li>
+                        <li className="cursor-pointer" onClick={() => setMinPrice("100000")}>100,000 ₾</li>
+                        <li className="cursor-pointer" onClick={() => setMinPrice("150000")}>150,000 ₾</li>
+                        <li className="cursor-pointer" onClick={() => setMinPrice("200000")}>200,000 ₾</li>
+                        <li className="cursor-pointer" onClick={() => setMinPrice("300000")}>300,000 ₾</li>
+                      </ul>
                     </div>
-                    <div className="border-[1px] border-[#808A93] rounded-md py-3 px-2">
-                        <input type="text" className="outline-none rounded-md" placeholder="მდე" onChange={handleMaxPriceChange}/>
-                        ₾
+                    <div className="flex flex-col gap-6">
+                      <div className="border-[1px] border-[#808A93] rounded-md py-3 px-2 mb-7">
+                          <input type="number" className="outline-none rounded-md" placeholder="მდე" onChange={handleMaxPriceChange} value={maxPrice}/>
+                          ₾
+                      </div>
+                      <span className="text-[#021526] font-[500]">მაქს. ფასი</span>
+                      <ul className="flex flex-col gap-2 items-start">
+                        <li className="cursor-pointer" onClick={() => setMaxPrice("50000")}>50,000 ₾</li>
+                        <li className="cursor-pointer" onClick={() => setMaxPrice("100000")}>100,000 ₾</li>
+                        <li className="cursor-pointer" onClick={() => setMaxPrice("150000")}>150,000 ₾</li>
+                        <li className="cursor-pointer" onClick={() => setMaxPrice("200000")}>200,000 ₾</li>
+                        <li className="cursor-pointer" onClick={() => setMaxPrice("300000")}>300,000 ₾</li>
+                      </ul>
                     </div>
-                </div>
+                  </div>
                 <div className="w-full flex">
-                <button className="bg-primary hover:bg-primary-hover rounded-lg text-white py-2 px-[0.875rem] ml-auto">არჩევა</button>
+                  <button className="bg-primary hover:bg-primary-hover rounded-lg text-white py-2 px-[0.875rem] ml-auto">არჩევა</button>
                 </div>
             </motion.form>
         )}
@@ -225,13 +312,36 @@ const handleSubmit = (e: React.FormEvent) => {
             >
             <span className="font-bold text-lg">ფართობის მიხედვით</span>
                 <div className="flex gap-4 py-6">
-                    <div className="border-[1px] border-[#808A93] rounded-md py-3 px-2">
-                        <input type="text" className="outline-none rounded-md" placeholder="დან" onChange={handleMinAreaChange}/>
-                        ₾
+                    <div className="flex flex-col gap-6">
+                      <div className={`border-[1px] ${errors?.minArea ? "border-primary" : "border-[#808A93]"} rounded-md py-3 px-2 relative mb-7`}>
+                          <input type="number" className="outline-none rounded-md" placeholder="დან" onChange={handleMinAreaChange} value={minArea}/>
+                          მ<sup>2</sup>
+                          {errors?.minArea &&
+                            <span className="absolute text-primary w-full left-0 bottom-0 translate-y-[102%]">მინიმალური ფართობი უნდა იყოს მაქსიმალურზე ნაკლები</span>
+                          }
+                      </div>
+                      <span className="text-[#021526] font-[500]">მინ. მ<sup>2</sup></span>
+                      <ul className="flex flex-col gap-2 items-start">
+                        <li className="cursor-pointer" onClick={() => setMinArea("40")}>40 მ<sup>2</sup></li>
+                        <li className="cursor-pointer" onClick={() => setMinArea("80")}>80 მ<sup>2</sup></li>
+                        <li className="cursor-pointer" onClick={() => setMinArea("120")}>120 მ<sup>2</sup></li>
+                        <li className="cursor-pointer" onClick={() => setMinArea("160")}>160 მ<sup>2</sup></li>
+                        <li className="cursor-pointer" onClick={() => setMinArea("200")}>200 მ<sup>2</sup></li>
+                      </ul>
                     </div>
-                    <div className="border-[1px] border-[#808A93] rounded-md py-3 px-2">
-                        <input type="text" className="outline-none rounded-md" placeholder="დან" onChange={handleMaxAreaChange}/>
-                        ₾
+                    <div className="flex flex-col gap-6">
+                      <div className="border-[1px] border-[#808A93] rounded-md py-3 px-2 mb-7">
+                          <input type="number" className="outline-none rounded-md" placeholder="დან" onChange={handleMaxAreaChange} value={maxArea}/>
+                          მ<sup>2</sup>
+                      </div>
+                      <span className="text-[#021526] font-[500]">მაქს. მ<sup>2</sup></span>
+                      <ul className="flex flex-col gap-2 items-start">
+                        <li className="cursor-pointer" onClick={() => setMaxArea("240")}>240 მ<sup>2</sup></li>
+                        <li className="cursor-pointer" onClick={() => setMaxArea("280")}>280 მ<sup>2</sup></li>
+                        <li className="cursor-pointer" onClick={() => setMaxArea("320")}>320 მ<sup>2</sup></li>
+                        <li className="cursor-pointer" onClick={() => setMaxArea("360")}>360 მ<sup>2</sup></li>
+                        <li className="cursor-pointer" onClick={() => setMaxArea("400")}>400 მ<sup>2</sup></li>
+                      </ul>
                     </div>
                 </div>
                 <div className="w-full flex">

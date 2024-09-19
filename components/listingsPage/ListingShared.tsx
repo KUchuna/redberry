@@ -78,14 +78,11 @@ export default function ListingShared({ regions, listings }: ListingSharedProps)
                   displayText = `${value}`;
                 } else if (key === 'minArea') {
                   displayText = <span>{searchParams.get('minArea')} მ<sup>2</sup> - {searchParams.get('maxArea')} მ<sup>2</sup></span>
-                } else if (key === 'maxArea') {
-                  displayText = <span>{searchParams.get('minArea')} მ<sup>2</sup> - {searchParams.get('maxArea')} მ<sup>2</sup></span>
                 } else if (key === 'minPrice') {
-                  displayText = <span>{searchParams.get('minPrice')}₾ - {searchParams.get('maxPrice')}₾</span>
-                } else if (key === 'maxPrice') {
                   displayText = <span>{searchParams.get('minPrice')}₾ - {searchParams.get('maxPrice')}₾</span>
                 }
                 return (
+                  displayText != null && 
                     <button
                         key={key}
                         className="border border-[#DBDBDB] rounded-[43px] px-[0.625rem] py-[0.375rem] flex gap-1 items-center text-[#021526CC]"

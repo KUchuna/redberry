@@ -41,11 +41,12 @@ export default function ListingsCarousel({listings}: ListingCardsSectionProps) {
             <div className="max-w-[1920px] flex flex-col justify-start items-start w-full gap-7 relative">
                 <h1 className="font-bold text-3xl">ბინები მსგავს ლოკაციაზე</h1>
                 <motion.button 
-                    className={`bg-primary rounded-full p-[12px] absolute top-[50%] translate-y-[-50%] left-[-5%] z-10 ${prevBtnDisabled ? "bg-[#efb797] pointer-events-none" : "bg-primary-light"}`} 
+                    className={`rounded-full p-[12px] absolute top-[50%] translate-y-[-50%] left-[-5%] z-10 ${prevBtnDisabled && "pointer-events-none"}`} 
                     onClick={scrollPrev}
                     disabled={prevBtnDisabled}
+                    whileHover={{background: "#808A93"}}
                     >
-                        <Image src={arrowr} alt="Next" className="rotate-[180deg]"/>
+                        <Image src={arrowr} alt="Prev"/>
                 </motion.button>
                 {listings.length > 0 ?
                     <div className="w-full h-[30rem] relative overflow-x-hidden font-lato" ref={emblaRef}>
@@ -64,11 +65,12 @@ export default function ListingsCarousel({listings}: ListingCardsSectionProps) {
                     <p>მსგავსი სახლები არ მოიძებნა</p>
                 }
                 <motion.button 
-                        className={`bg-primary rounded-full p-[12px] absolute top-[50%] translate-y-[-50%] right-[-5%] z-10 ${nextBtnDisabled ? "bg-[#efb797] pointer-events-none" : "bg-primary-light"}`} 
+                        className={`rounded-full p-[12px] absolute top-[50%] translate-y-[-50%] right-[-5%] z-10 ${nextBtnDisabled && "pointer-events-none"}`} 
                         onClick={scrollNext}
                         disabled={nextBtnDisabled}
+                        whileHover={{background: "#808A93"}}
                         >
-                        <Image src={arrowr} alt="Next"/>
+                        <Image src={arrowr} alt="Next" className="rotate-180"/>
                 </motion.button>
             </div>
         </section>
