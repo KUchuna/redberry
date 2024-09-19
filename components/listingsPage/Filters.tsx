@@ -274,11 +274,11 @@ const handleSubmit = (e: React.FormEvent) => {
                       </div>
                       <span className="text-[#021526] font-[500]">მინ. ფასი</span>
                       <ul className="flex flex-col gap-2 items-start">
-                        <li className="cursor-pointer" onClick={() => setMinPrice("50000")}>50,000 ₾</li>
-                        <li className="cursor-pointer" onClick={() => setMinPrice("100000")}>100,000 ₾</li>
-                        <li className="cursor-pointer" onClick={() => setMinPrice("150000")}>150,000 ₾</li>
-                        <li className="cursor-pointer" onClick={() => setMinPrice("200000")}>200,000 ₾</li>
-                        <li className="cursor-pointer" onClick={() => setMinPrice("300000")}>300,000 ₾</li>
+                        <li className="cursor-pointer" onClick={() => {setMinPrice("50000"), setErrors(null)}}>50,000 ₾</li>
+                        <li className="cursor-pointer" onClick={() => {setMinPrice("100000"), setErrors(null)}}>100,000 ₾</li>
+                        <li className="cursor-pointer" onClick={() => {setMinPrice("150000"), setErrors(null)}}>150,000 ₾</li>
+                        <li className="cursor-pointer" onClick={() => {setMinPrice("200000"), setErrors(null)}}>200,000 ₾</li>
+                        <li className="cursor-pointer" onClick={() => {setMinPrice("300000"), setErrors(null)}}>300,000 ₾</li>
                       </ul>
                     </div>
                     <div className="flex flex-col gap-6">
@@ -288,11 +288,11 @@ const handleSubmit = (e: React.FormEvent) => {
                       </div>
                       <span className="text-[#021526] font-[500]">მაქს. ფასი</span>
                       <ul className="flex flex-col gap-2 items-start">
-                        <li className="cursor-pointer" onClick={() => setMaxPrice("50000")}>50,000 ₾</li>
-                        <li className="cursor-pointer" onClick={() => setMaxPrice("100000")}>100,000 ₾</li>
-                        <li className="cursor-pointer" onClick={() => setMaxPrice("150000")}>150,000 ₾</li>
-                        <li className="cursor-pointer" onClick={() => setMaxPrice("200000")}>200,000 ₾</li>
-                        <li className="cursor-pointer" onClick={() => setMaxPrice("300000")}>300,000 ₾</li>
+                        <li className="cursor-pointer" onClick={() => {setMaxPrice("50000"), setErrors(null)}}>50,000 ₾</li>
+                        <li className="cursor-pointer" onClick={() => {setMaxPrice("100000"), setErrors(null)}}>100,000 ₾</li>
+                        <li className="cursor-pointer" onClick={() => {setMaxPrice("150000"), setErrors(null)}}>150,000 ₾</li>
+                        <li className="cursor-pointer" onClick={() => {setMaxPrice("200000"), setErrors(null)}}>200,000 ₾</li>
+                        <li className="cursor-pointer" onClick={() => {setMaxPrice("300000"), setErrors(null)}}>300,000 ₾</li>
                       </ul>
                     </div>
                   </div>

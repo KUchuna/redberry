@@ -40,22 +40,40 @@ export default function ListingShared({ regions, listings }: ListingSharedProps)
     }, [searchParams, router]);
 
     const handleClearFilter = (filterKey: keyof FiltersInterface) => {
-        const newFilters = { ...filters, [filterKey]: undefined };
-        setFilters(newFilters);
-        
-        const params = new URLSearchParams();
-        Object.keys(newFilters).forEach(key => {
-        if (newFilters[key as keyof FiltersInterface]) {
-            params.set(key, newFilters[key as keyof FiltersInterface]?.toString() || "");
-        }
-        });
+      // Create a copy of the current filters
+      const newFilters = { ...filters };
+  
+      // Clear the specific filter
+      newFilters[filterKey] = undefined;
+  
+      // Clear related filters based on the key
+      if (filterKey === 'minPrice') {
+          newFilters['maxPrice'] = undefined;
+      } else if (filterKey === 'minArea') {
+          newFilters['maxArea'] = undefined;
+      }
+  
+      // Update the state with the new filters
+      setFilters(newFilters);
+  
+      // Create a new URLSearchParams object and set the updated filters
+      const params = new URLSearchParams();
+  
+      Object.entries(newFilters).forEach(([key, value]) => {
+          if (value !== undefined && value !== "") {
+              params.set(key, value.toString());
+          }
+      });
+  
+      // Check if no filters are present, and redirect accordingly
+      if (params.toString() === "") {
+          router.push("/");
+      } else {
+          router.push(`?${params.toString()}`);
+      }
+  };
+  
 
-        if (params.toString() === "") {
-        router.push("/");
-        } else {
-        router.push(`?${params.toString()}`);
-        }
-    };
     const hasActiveFilters = Object.values(filters).some(value => (Array.isArray(value) ? value.length > 0 : value !== undefined && value !== ""));
 
 
