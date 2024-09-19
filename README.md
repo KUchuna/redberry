@@ -1,36 +1,63 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+---
 
-## Getting Started
+# Redberry Real Estate Project
 
-First, run the development server:
+This project is a real estate website built using **Next.js**, **TypeScript**, **Tailwind CSS**, and various modern libraries. It provides users with advanced filtering functionality, allowing them to search for properties based on multiple criteria, including price, area, regions, and number of bedrooms. The filtering system is seamlessly integrated with **URL search parameters**, making the filters shareable and persistent across page reloads.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Advanced Filtering**: Users can filter properties by price, area, regions, and bedrooms. The filters are stored in the URL, making them shareable and persistent on page refresh.
+- **Interactive Animations**: *Framer Motion** for smooth animations, enhancing the user experience with beautiful transitions.
+- **Form Validation**: All forms in the project are validated using **Zod**. It ensures that the user inputs meet the required criteria (e.g., price and area validations), providing instant feedback.
+- **Image Carousels**: Property listings include beautiful carousels powered by **Embla Carousel**.
+- **State Management**: State-driven UI updates ensure real-time feedback without page reloads.
+  
+## Tech Stack
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Next.js** - The React framework for server-rendered and static websites.
+- **TypeScript** - Strictly typed JavaScript to minimize errors.
+- **Tailwind CSS** - A utility-first CSS framework for custom design and rapid UI development.
+- **Framer Motion** - Powerful library for animations and transitions.
+- **Zod** - Schema-based form validation for robust input handling.
+- **Embla Carousel** - Lightweight library for creating customizable carousels.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Filter System
 
-## Learn More
+Filtering system uses **Next.js SearchParams**, storing the filter parameters directly in the URL. This approach has several benefits:
+- **Shareable Links**: Users can share the URL with filters applied, allowing others to see the same filtered results.
+- **Persistent Filters**: Filters are maintained even after the user refreshes the page, ensuring a smooth experience.
 
-To learn more about Next.js, take a look at the following resources:
+### How Filters Work:
+- Users can filter by:
+  - **Price Range**: Minimum and maximum prices.
+  - **Area Range**: Minimum and maximum area in square meters.
+  - **Regions**: Select one or more regions.
+  - **Number of Bedrooms**: Filter by the number of bedrooms.
+- **Clear Filters**: Individual filters can be cleared by clicking on the filter pill, and a reset button is available to clear all active filters at once.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Installation & Setup
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+To run this project locally:
 
-## Deploy on Vercel
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/KUchuna/redberry.git
+   ```
+   
+2. Navigate to the project directory:
+   ```bash
+   cd redberry
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+4. Run the development server:
+   ```bash
+   npm run dev
+   ```
+
+   Open [http://localhost:3000](http://localhost:3000) to view the app in your browser.
+---
