@@ -8,9 +8,13 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        firago: ['FiraGO', "serif"]
+      },
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        "primary": "#F93B1D",
+        "primary-hover": "#DF3014",
+        "secondary": "#808A93"
       },
     },
   },
