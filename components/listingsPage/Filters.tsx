@@ -58,6 +58,11 @@ export default function Filters({regions}: FiltersProps) {
   useEffect(() => {
     const params = searchParams.get('regions');
     setSelectedRegions(params ? params.split(',') : []);
+    setMinPrice(searchParams.get('minPrice'));
+    setMaxPrice(searchParams.get('maxPrice'));
+    setMinArea(searchParams.get('minArea'));
+    setMaxArea(searchParams.get('maxArea'))
+    setBedrooms(searchParams.get('bedrooms'))
   }, [searchParams]);
 
   const handleMinPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -71,11 +71,19 @@ export default function ListingShared({ regions, listings }: ListingSharedProps)
                 {Object.entries(filters).map(([key, value]) => {
                 if (value === undefined || (Array.isArray(value) && value.length === 0))
                 return null;
-                let displayText = '';
+                let displayText;
                 if (key === 'regions') {
                   displayText = `რეგიონი`;
                 } else if (key === 'bedrooms') {
                   displayText = `${value}`;
+                } else if (key === 'minArea') {
+                  displayText = <span>{searchParams.get('minArea')} მ<sup>2</sup> - {searchParams.get('maxArea')} მ<sup>2</sup></span>
+                } else if (key === 'maxArea') {
+                  displayText = <span>{searchParams.get('minArea')} მ<sup>2</sup> - {searchParams.get('maxArea')} მ<sup>2</sup></span>
+                } else if (key === 'minPrice') {
+                  displayText = <span>{searchParams.get('minPrice')}₾ - {searchParams.get('maxPrice')}₾</span>
+                } else if (key === 'maxPrice') {
+                  displayText = <span>{searchParams.get('minPrice')}₾ - {searchParams.get('maxPrice')}₾</span>
                 }
                 return (
                     <button
