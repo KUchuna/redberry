@@ -113,6 +113,11 @@ export default function Filters({regions}: FiltersProps) {
     setBedrooms(searchParams.get('bedrooms'))
   }, [searchParams]);
 
+  useEffect(() => {
+    // Clear errors when the active filter changes
+    setErrors(null);
+  }, [activeFilter]);
+
   const handleMinPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setMinPrice(e.target.value);
   };
@@ -135,64 +140,75 @@ export default function Filters({regions}: FiltersProps) {
 
   const [errors, setErrors] = useState<{[key: string]: string } | null>({})
 
-const handleSubmit = (e: React.FormEvent) => {
-  
-  e.preventDefault();
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
 
-  const params = new URLSearchParams(searchParams.toString());
+    const params = new URLSearchParams(searchParams.toString());
 
-  const result = filterSchema.safeParse({ minPrice, maxPrice, minArea, maxArea });
+    const result = filterSchema.safeParse({ minPrice, maxPrice, minArea, maxArea });
 
-  if (!result.success) {
-    const fieldErrors: { [key: string]: string } = {};
-    result.error.errors.forEach((error) => {
+    if (!result.success) {
+      const fieldErrors: { [key: string]: string } = {};
+      result.error.errors.forEach((error) => {
         if (error.path[0]) {
-            fieldErrors[error.path[0]] = error.message;
+          fieldErrors[error.path[0]] = error.message;
         }
-    });
-    setErrors(fieldErrors);
-    return
-  }
+      });
+      try {
+        setMinPrice("")
+        setMaxPrice("")
+        setMinArea("")
+        setMaxArea("")
+      } finally {
+        setErrors(fieldErrors);
+      }
+      return;
+    }
 
 
-  if (selectedRegions.length > 0) {
-    params.set('regions', selectedRegions.join(','));
-  } else {
-    params.delete('regions');
-  }
 
-  if (minPrice) {
-    params.set('minPrice', minPrice);
-  } else {
-    params.delete('minPrice');
-  }
-  
-  if (maxPrice) {
-    params.set('maxPrice', maxPrice);
-  } else {
-    params.delete('maxPrice');
-  }
-  
-  if (maxArea) {
-    params.set('maxArea', maxArea);
-  } else {
-    params.delete('maxArea');
-  }
+    // Only apply parameters based on the active filter
+    if (activeFilter === "region") {
+        if (selectedRegions.length > 0) {
+            params.set('regions', selectedRegions.join(','));
+        } else {
+            params.delete('regions');
+        }
+    } else if (activeFilter === "price") {
+        if (minPrice) {
+            params.set('minPrice', minPrice);
+        } else {
+            params.delete('minPrice');
+        }
+        
+        if (maxPrice) {
+            params.set('maxPrice', maxPrice);
+        } else {
+            params.delete('maxPrice');
+        }
+    } else if (activeFilter === "area") {
+        if (minArea) {
+            params.set('minArea', minArea);
+        } else {
+            params.delete('minArea');
+        }
 
-  if (minArea) {
-    params.set('minArea', minArea);
-  } else {
-    params.delete('minArea');
-  }
-  
-  if (bedrooms) {
-    params.set('bedrooms', bedrooms);
-  } else {
-    params.delete('bedrooms');
-  }
+        if (maxArea) {
+            params.set('maxArea', maxArea);
+        } else {
+            params.delete('maxArea');
+        }
+    } else if (activeFilter === "bedrooms") {
+        if (bedrooms) {
+            params.set('bedrooms', bedrooms);
+        } else {
+            params.delete('bedrooms');
+        }
+    }
 
-  setActiveFilter(null)
-  router.replace(`?${params.toString()}`);
+    // Reset the active filter after submission
+    setActiveFilter(null);
+    router.replace(`?${params.toString()}`);
 };
 
 
@@ -224,7 +240,7 @@ const handleSubmit = (e: React.FormEvent) => {
            initial="hidden"
            animate="visible"
            transition={{ duration: 0.3 }}
-           className="absolute left-0 mt-2 border p-4 w-fit rounded-[10px] z-20 bg-white"
+           className="absolute left-0 mt-2 border p-4 w-fit rounded-[10px] z-20 bg-white filter-container"
            onSubmit={handleSubmit}
          >
            <span className="font-bold text-lg">რეგიონის მიხედვით</span>
@@ -260,7 +276,7 @@ const handleSubmit = (e: React.FormEvent) => {
             animate="visible"
             transition={{ duration: 0.3 }}
             onSubmit={handleSubmit}
-            className="absolute left-0 mt-2 border p-4 w-fit rounded-[10px] z-20 bg-white"
+            className="absolute left-0 mt-2 border p-4 w-fit rounded-[10px] z-20 bg-white filter-container"
             >
                 <span className="font-bold text-lg">ფასის მიხედვით</span>
                   <div className="flex gap-4 py-6">
@@ -308,7 +324,7 @@ const handleSubmit = (e: React.FormEvent) => {
             animate="visible"
             transition={{ duration: 0.3 }}
             onSubmit={handleSubmit}
-            className="absolute left-0 mt-2 border p-4 w-fit rounded-[10px] z-20 bg-white"
+            className="absolute left-0 mt-2 border p-4 w-fit rounded-[10px] z-20 bg-white filter-container"
             >
             <span className="font-bold text-lg">ფართობის მიხედვით</span>
                 <div className="flex gap-4 py-6">
@@ -355,7 +371,7 @@ const handleSubmit = (e: React.FormEvent) => {
             initial="hidden"
             animate="visible"
             transition={{ duration: 0.3 }}
-            className="absolute flex flex-col items-start gap-6 left-0 mt-2 border p-4 w-fit rounded-[10px] z-20 bg-white"
+            className="absolute flex flex-col items-start gap-6 left-0 mt-2 border p-4 w-fit rounded-[10px] z-20 bg-white filter-container"
             onSubmit={handleSubmit}
             >
             <span className="font-bold text-lg">საძინებლების რაოდენობა</span>

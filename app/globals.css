@@ -455,3 +455,8 @@ border-radius: 50px;
   .dot:nth-child(13) {
     --uib-scale: 0.82;
   }
+
+
+  .filter-container {
+    box-shadow: 5px 5px 12px 0px #02152614;
+  }
