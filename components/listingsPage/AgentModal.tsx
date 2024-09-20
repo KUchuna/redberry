@@ -122,7 +122,7 @@ export default function AgentModal({ onClose }: { onClose: () => void }) {
             className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-50">
             <motion.div 
                 ref={modalRef} 
-                className="bg-white px-28 py-20 rounded-lg shadow-lg flex flex-col justify-center gap-4 w-[80%] max-w-[1920px]"
+                className="bg-white px-28 py-20 rounded-lg shadow-lg flex flex-col justify-center gap-4 w-[80%] max-w-[1920px] dark:bg-[#0A0A0A]"
                 variants={containerVariants}
                 initial="hidden"
                 animate="visible"
@@ -132,50 +132,50 @@ export default function AgentModal({ onClose }: { onClose: () => void }) {
                 <form onSubmit={handleSubmit} className="flex flex-col" noValidate>
                     <div className="grid grid-cols-2 gap-x-8 gap-y-7 mb-7">
                         <div className="flex flex-col">
-                            <label htmlFor="name" className={`mb-1 font-medium ${errors.name ? "text-primary" : "text-[#021526]"}`}>სახელი *</label>
+                            <label htmlFor="name" className={`mb-1 font-medium ${errors.name ? "text-primary" : "text-[#021526] dark:text-white"}`}>სახელი *</label>
                             <input 
                                 type="text" 
                                 name="name"
                                 id="name"
-                                className={`border-[1px] ${errors.name ? "border-primary" : "border-[#808A93]"} p-2 rounded-md outline-none`} 
+                                className={`border-[1px] ${errors.name ? "border-primary" : "border-[#808A93] dark:border-zinc-600"} p-2 rounded-md outline-none`} 
                             />
                              {errors.name ? <span className="text-primary text-sm mt-1">{errors.name}</span> : <span className="flex gap-2 mt-1"><Image src={checkmark} alt="" />მინიმუმ ორი სიმბოლო</span>}
                             
                         </div>
                         <div className="flex flex-col">
-                            <label htmlFor="surname" className={`mb-1 font-medium ${errors.surname ? "text-primary" : "text-[#021526]"}`}>გვარი *</label>
+                            <label htmlFor="surname" className={`mb-1 font-medium ${errors.surname ? "text-primary" : "text-[#021526] dark:text-white"}`}>გვარი *</label>
                             <input 
                                 type="text" 
                                 name="surname"
                                 id="surname"
-                                className={`border-[1px] ${errors.surname ? "border-primary" : "border-[#808A93]"} p-2 rounded-md outline-none`}  
+                                className={`border-[1px] ${errors.surname ? "border-primary" : "border-[#808A93] dark:border-zinc-600"} p-2 rounded-md outline-none`}  
                             />
                             {errors.surname ? <span className="text-primary text-sm mt-1">{errors.surname}</span> : <span className="flex gap-2 mt-1"><Image src={checkmark} alt="" />მინიმუმ ორი სიმბოლო</span>}
                         </div>
                         <div className="flex flex-col">
-                            <label htmlFor="email" className={`mb-1 font-medium ${errors.email ? "text-primary" : "text-[#021526]"}`}>ელ-ფოსტა *</label>
+                            <label htmlFor="email" className={`mb-1 font-medium ${errors.email ? "text-primary" : "text-[#021526] dark:text-white"}`}>ელ-ფოსტა *</label>
                             <input 
                                 type="email" 
                                 name="email"
                                 id="email" 
-                                className={`border-[1px] ${errors.email ? "border-primary" : "border-[#808A93]"} p-2 rounded-md outline-none`}  
+                                className={`border-[1px] ${errors.email ? "border-primary" : "border-[#808A93] dark:border-zinc-600"} p-2 rounded-md outline-none`}  
                             />
                             {errors.email ? <span className="text-primary text-sm mt-1">{errors.email}</span> : <span className="flex gap-2 mt-1"><Image src={checkmark} alt="" />მინიმუმ ორი სიმბოლო</span>}
                         </div>
                         <div className="flex flex-col">
-                            <label htmlFor="phone" className={`mb-1 font-medium ${errors.phone ? "text-primary" : "text-[#021526]"}`}>ტელეფონის ნომერი *</label>
+                            <label htmlFor="phone" className={`mb-1 font-medium ${errors.phone ? "text-primary" : "text-[#021526] dark:text-white"}`}>ტელეფონის ნომერი *</label>
                             <input 
                                 type="tel" 
                                 name="phone" 
                                 id="phone"
                                 onChange={handlePhoneChange}
                                 value={phoneValue}
-                                className={`border-[1px] ${errors.phone ? "border-primary" : "border-[#808A93]"} p-2 rounded-md outline-none`}  
+                                className={`border-[1px] ${errors.phone ? "border-primary" : "border-[#808A93] dark:border-zinc-600"} p-2 rounded-md outline-none`}  
                             />
                             {errors.phone ? <span className="text-primary text-sm mt-1">{errors.phone}</span> : <span className="flex gap-2 mt-1"><Image src={checkmark} alt="" />მინიმუმ ორი სიმბოლო</span>}
                         </div>
                     </div>
-                    <span className={`mb-2 font-medium ${errors.avatar ? "text-primary" : "text-[#021526]"}`}>ატვირთეთ ფოტო *</span>
+                    <span className={`mb-2 font-medium ${errors.avatar ? "text-primary" : "text-[#021526] dark:text-white"}`}>ატვირთეთ ფოტო *</span>
                     <label htmlFor="avatar" className={`custom-file-upload border-[2px] border-dashed ${errors.avatar ? "border-primary" : "border-[#2D3648]"}`}><Image src={preview ? preview : fileUpload} width={preview ? 100 : 24} height={preview ? 90 : 24}alt="" className="max-h-[90px] object-cover rounded-md"/></label>
                     <input 
                         type="file" 
@@ -191,7 +191,7 @@ export default function AgentModal({ onClose }: { onClose: () => void }) {
                         type="button" onClick={onClose}>
                             გაუქმება
                         </button>
-                        <button type="submit" className="bg-primary text-white py-2 px-4 rounded-md hover:bg-primary-hover border-[1px]">
+                        <button type="submit" className="bg-primary text-white py-2 px-4 rounded-md hover:bg-primary-hover border-[1px] dark:border-[#0A0A0A]">
                             დაამატე აგენტი
                         </button>
                     </div>

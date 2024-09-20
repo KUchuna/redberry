@@ -30,7 +30,7 @@ export default function ListingInfo({listing}: ListingInfoProps) {
         <section className="py-20 px-40 w-full flex justify-start">
             <div className="max-w-[1920px] flex flex-col justify-start items-start w-full gap-7">
                 <Link href="/">
-                    <Image src={back} alt="" />
+                    <Image src={back} alt="" className="dark:bg-zinc-500 rounded-full"/>
                 </Link>
                 <div className="flex w-full justify-start items-start gap-16 max-h-[700px] min-h-[700px] h-full">
                     <div className="w-[50%] justify-between h-full overflow-hidden flex flex-col items-end gap-3">
@@ -40,12 +40,12 @@ export default function ListingInfo({listing}: ListingInfoProps) {
                         <span className="text-[#808A93]">გამოქვეყნების თარიღი {formattedDate}</span>
                     </div>
                     <div className="flex flex-col w-[30%] h-full">
-                        <span className="font-bold text-[#021526] text-5xl">{formattedPrice} ₾</span>
-                        <div className="flex flex-col gap-4 mt-6 mb-10">
-                            <span className="text-[#021526B2] flex items-center gap-1 text-2xl"><Image src={location} alt="" /> {listing.address}</span>
-                            <span className="text-[#021526B2] flex items-center gap-1 text-2xl"><Image src={area} alt="" /> ფართი {listing.area} მ<sup>2</sup></span>
-                            <span className="text-[#021526B2] flex items-center gap-1 text-2xl"><Image src={bed} alt="" /> საძინებელი {listing.bedrooms}</span>
-                            <span className="text-[#021526B2] flex items-center gap-1 text-2xl"><Image src={zip} alt="" /> საფოსტო ინდექსი {listing.zip_code}</span>
+                        <span className="font-bold text-[#021526] dark:text-slate-200 text-5xl">{formattedPrice} ₾</span>
+                        <div className="flex flex-col gap-4 mt-6 mb-10 dark:bg-zinc-700 dark:p-3 rounded-2xl">
+                            <span className="text-[#021526B2] dark:text-slate-200 flex items-center gap-1 text-2xl"><Image src={location} alt="" /> {listing.address}</span>
+                            <span className="text-[#021526B2] dark:text-slate-200 flex items-center gap-1 text-2xl"><Image src={area} alt="" /> ფართი {listing.area} მ<sup>2</sup></span>
+                            <span className="text-[#021526B2] dark:text-slate-200 flex items-center gap-1 text-2xl"><Image src={bed} alt="" /> საძინებელი {listing.bedrooms}</span>
+                            <span className="text-[#021526B2] dark:text-slate-200 flex items-center gap-1 text-2xl"><Image src={zip} alt="" /> საფოსტო ინდექსი {listing.zip_code}</span>
                         </div>
                         <p className="text-[#808A93] text-lg mb-12">
                             {listing.description}
@@ -56,7 +56,7 @@ export default function ListingInfo({listing}: ListingInfoProps) {
                                     <Image src={listing.agent.avatar} alt="" width={72} height={72} className="rounded-full object-cover w-full h-full"/>
                                 </div>
                                 <div className="flex flex-col">
-                                    <span className="text-[#021526]">{listing.agent.name} {listing.agent.surname}</span>
+                                    <span className="text-[#021526] dark:text-slate-200">{listing.agent.name} {listing.agent.surname}</span>
                                     <span className="text-[#808A93]">აგენტი</span>
                                 </div>
                             </div>

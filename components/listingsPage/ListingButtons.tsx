@@ -12,7 +12,7 @@ export default function ListingButtons() {
 
     return (
         <div className="flex items-center gap-4">
-            <Link href="/newlisting" className="bg-primary hover:bg-primary-hover border-[1px] text-white px-4 py-[0.875rem] rounded-[10px]">+ ლისტინგის დამატება</Link>
+            <Link href="/newlisting" className="bg-primary hover:bg-primary-hover border-[1px] text-white dark:border-[#0A0A0A] px-4 py-[0.875rem] rounded-[10px]">+ ლისტინგის დამატება</Link>
             <button className="border-[1px] border-primary hover:bg-primary hover:text-white text-primary px-4 py-[0.875rem] rounded-[10px]" onClick={() => setActive(!active)}>+ აგენტის დამატება</button>
             {active && 
                 <AgentModal 

@@ -210,7 +210,7 @@ export default function ListingForm({regions, cities, agents}: ListingFormProps)
                     />
                 </div>
             }
-            <form className="text-[#021526] flex flex-col gap-20 w-full" onSubmit={handleSubmit}>
+            <form className="text-[#021526] dark:text-white dark:text-white flex flex-col gap-20 w-full" onSubmit={handleSubmit}>
                 <input 
                     type="number"
                     name="agent_id"
@@ -230,7 +230,7 @@ export default function ListingForm({regions, cities, agents}: ListingFormProps)
                     className="hidden"
                 />
                 <div className="flex flex-col gap-2">
-                    <span className="text-[#1A1A1F] font-[500] text-xl">გარიგების ტიპი</span>
+                    <span className="text-[#1A1A1F] dark:text-white font-[500] text-xl">გარიგების ტიპი</span>
                     <div className="flex gap-20">
                         <div className="flex flex-row-reverse gap-2">
                             <label htmlFor="sale" className="select-none radio-item">იყიდება</label>
@@ -260,30 +260,30 @@ export default function ListingForm({regions, cities, agents}: ListingFormProps)
                 </div>
 
                 <div className="flex flex-col gap-6 w-full">
-                    <span className="text-[#1A1A1F] font-[500] text-xl">მდებარეობა</span>
+                    <span className="text-[#1A1A1F] dark:text-white font-[500] text-xl">მდებარეობა</span>
                     <div className="flex flex-col gap-5">
                         <div className="flex w-full gap-5">
                             <div className="flex flex-col w-[50%]">
-                                <label htmlFor="address" className={`mb-1 font-medium ${errors.address ? "text-primary" : "text-[#021526]"}`}>მისამართი *</label>
-                                <input type="text" name="address" id="address" className={`border-[1px] ${errors.address ? "border-primary" : "border-[#808A93]"} rounded-md outline-none py-2 px-3 h-[2.625rem]`} />
+                                <label htmlFor="address" className={`mb-1 font-medium ${errors.address ? "text-primary" : "text-[#021526] dark:text-white"}`}>მისამართი *</label>
+                                <input type="text" name="address" id="address" className={`border-[1px] ${errors.address ? "border-primary" : "border-[#808A93] dark:border-zinc-600"} rounded-md outline-none py-2 px-3 h-[2.625rem]`} />
                                 {errors.address ? <span className="text-primary text-sm mt-1">{errors.address}</span> : <span className="flex gap-2 mt-1"><Image src={checkmark} alt="" />მინიმუმ ორი სიმბოლო</span>}
                             </div>
                             <div className="flex flex-col w-[50%]">
-                                <label htmlFor="zip_code" className={`mb-1 font-medium ${errors.zip_code ? "text-primary" : "text-[#021526]"}`}>საფოსტო ინდექსი *</label>
-                                <input type="text" name="zip_code" id="zip_code" className={`border-[1px] ${errors.zip_code ? "border-primary" : "border-[#808A93]"} rounded-md outline-none py-2 px-3 h-[2.625rem]`} />
+                                <label htmlFor="zip_code" className={`mb-1 font-medium ${errors.zip_code ? "text-primary" : "text-[#021526] dark:text-white"}`}>საფოსტო ინდექსი *</label>
+                                <input type="text" name="zip_code" id="zip_code" className={`border-[1px] ${errors.zip_code ? "border-primary" : "border-[#808A93] dark:border-zinc-600"} rounded-md outline-none py-2 px-3 h-[2.625rem]`} />
                                 {errors.zip_code ? <span className="text-primary text-sm mt-1">{errors.zip_code}</span> : <span className="flex gap-2 mt-1"><Image src={checkmark} alt="" />მხოლოდ რიცხვები</span>}
                             </div>
                         </div>
 
                         <div className="flex w-full gap-5">
                             <div className="flex flex-col w-[50%]">
-                                <span className={`mb-1 font-medium ${errors.region_id ? "text-primary" : "text-[#021526]"}`}>რეგიონი *</span>
-                                <div id="region" className={`border-[1px] ${errors.region_id ? "border-primary" : "border-[#808A93]"} rounded-md px-3 py-2 h-[2.625rem] relative cursor-pointer flex`} onClick={() => toggleDropDown("region")}> 
+                                <span className={`mb-1 font-medium ${errors.region_id ? "text-primary" : "text-[#021526] dark:text-white"}`}>რეგიონი *</span>
+                                <div id="region" className={`border-[1px] ${errors.region_id ? "border-primary" : "border-[#808A93] dark:border-zinc-600"} rounded-md px-3 py-2 h-[2.625rem] relative cursor-pointer flex`} onClick={() => toggleDropDown("region")}> 
                                 <p>{selectedRegion != null ? selectedRegion.name : "აირჩიე რეგიონი"}</p>
                                 <Image src={downArrow} alt=""  className="ml-auto"/>
                                     {activeDropDown == "region" && 
                                         <motion.div 
-                                        className="absolute bg-[#ffffff] select-none -bottom-0 translate-y-[100%] w-full rounded-md left-0 overflow-y-auto border-[1px] cursor-default py-2 border-[#808A93]"
+                                        className="absolute bg-[#ffffff] select-none -bottom-0 translate-y-[100%] w-full rounded-md left-0 overflow-y-auto border-[1px] cursor-default py-2 border-[#808A93] dark:border-zinc-600 dark:bg-[#0A0A0A]"
                                         id="region"
                                         variants={container}
                                         initial="hidden"
@@ -291,7 +291,7 @@ export default function ListingForm({regions, cities, agents}: ListingFormProps)
                                         >
                                             {regions.map((region) => (
                                                 <motion.p key={region.id} 
-                                                className="px-3 py-1 hover:bg-zinc-300"
+                                                className="px-3 py-1 hover:bg-zinc-300 dark:hover:bg-zinc-700"
                                                 variants={item}
                                                 onClick={() => handleRegionSelect(region.name, region.id)}
                                                 >{region.name}</motion.p>
@@ -301,13 +301,13 @@ export default function ListingForm({regions, cities, agents}: ListingFormProps)
                                 </div>
                             </div>
                             <div className="flex flex-col w-[50%]">
-                                <span className={`mb-1 font-medium ${errors.city_id ? "text-primary" : "text-[#021526]"}`}>ქალაქი *</span>
-                                <div id="city" className={`border-[1px] ${errors.city_id ? "border-primary" : "border-[#808A93]"} rounded-md px-3 py-2 h-[2.625rem] relative ${!selectedRegion ? "cursor-not-allowed bg-slate-100" : "cursor-pointer"} flex`} onClick={handleCityDropdown}> 
+                                <span className={`mb-1 font-medium ${errors.city_id ? "text-primary" : "text-[#021526] dark:text-white"}`}>ქალაქი *</span>
+                                <div id="city" className={`border-[1px] ${errors.city_id ? "border-primary" : "border-[#808A93] dark:border-zinc-600"} rounded-md px-3 py-2 h-[2.625rem] relative ${!selectedRegion ? "cursor-not-allowed bg-slate-100 dark:bg-zinc-900" : "cursor-pointer"} flex`} onClick={handleCityDropdown}> 
                                 <p>{selectedCity != null ? selectedCity.name : "აირჩიე ქალაქი"}</p>
                                 <Image src={downArrow} alt=""  className="ml-auto"/>
                                     {activeDropDown == "city" && 
                                         <motion.div 
-                                        className="absolute bg-[#ffffff] select-none -bottom-0 translate-y-[100%] w-full rounded-md left-0 overflow-y-auto border-[1px] cursor-default py-2 border-[#808A93]"
+                                        className="absolute bg-[#ffffff] select-none -bottom-0 translate-y-[100%] w-full rounded-md left-0 overflow-y-auto border-[1px] cursor-default py-2 border-[#808A93] dark:border-zinc-600 dark:bg-[#0A0A0A]"
                                         id="region"
                                         variants={container}
                                         initial="hidden"
@@ -316,7 +316,7 @@ export default function ListingForm({regions, cities, agents}: ListingFormProps)
                                             {filteredCities.length > 0 && 
                                                 filteredCities.map((city) => (
                                                 <motion.p key={city.id} 
-                                                    className="px-3 py-1 hover:bg-zinc-300"
+                                                    className="px-3 py-1 hover:bg-zinc-300 dark:hover:bg-zinc-700"
                                                     variants={item}
                                                     onClick={() => handleCitySelect(city.name, city.id, city.region_id)}
                                                     >{city.name}</motion.p>
@@ -331,35 +331,35 @@ export default function ListingForm({regions, cities, agents}: ListingFormProps)
 
                 </div>
                     <div className="flex flex-col gap-6">
-                        <span className="text-[#1A1A1F] font-[500] text-xl">ბინის დეტალები</span>
+                        <span className="text-[#1A1A1F] dark:text-white font-[500] text-xl">ბინის დეტალები</span>
                         <div className="flex w-full gap-5 flex-wrap">
                             <div className="w-full flex gap-5">
                                 <div className="flex flex-col w-[50%]">
-                                    <label htmlFor="price" className={`mb-1 font-medium ${errors.price ? "text-primary" : "text-[#021526]"}`}>ფასი *</label>
-                                    <input type="text" name="price" id="price" className={`border-[1px] ${errors.price ? "border-primary" : "border-[#808A93]"} rounded-md outline-none py-2 px-3 h-[2.625rem]`} />
+                                    <label htmlFor="price" className={`mb-1 font-medium ${errors.price ? "text-primary" : "text-[#021526] dark:text-white"}`}>ფასი *</label>
+                                    <input type="text" name="price" id="price" className={`border-[1px] ${errors.price ? "border-primary" : "border-[#808A93] dark:border-zinc-600"} rounded-md outline-none py-2 px-3 h-[2.625rem]`} />
                                     {errors.price ? <span className="text-primary text-sm mt-1">{errors.price}</span> : <span className="flex gap-2 mt-1"><Image src={checkmark} alt="" />მხოლოდ რიცხვები</span>}
                                 </div>
                                 <div className="flex flex-col w-[50%]">
-                                    <label htmlFor="area" className={`mb-1 font-medium ${errors.area ? "text-primary" : "text-[#021526]"}`}>ფართობი *</label>
-                                    <input type="text" name="area" id="area" className={`border-[1px] ${errors.area ? "border-primary" : "border-[#808A93]"} rounded-md outline-none py-2 px-3 h-[2.625rem]`} />
+                                    <label htmlFor="area" className={`mb-1 font-medium ${errors.area ? "text-primary" : "text-[#021526] dark:text-white"}`}>ფართობი *</label>
+                                    <input type="text" name="area" id="area" className={`border-[1px] ${errors.area ? "border-primary" : "border-[#808A93] dark:border-zinc-600"} rounded-md outline-none py-2 px-3 h-[2.625rem]`} />
                                     {errors.area ? <span className="text-primary text-sm mt-1">{errors.area}</span> : <span className="flex gap-2 mt-1"><Image src={checkmark} alt="" />მხოლოდ რიცხვები</span>}
                                 </div>
                             </div>
                             <div className="w-full flex gap-5">
                                 <div className="flex flex-col w-[50%]">
-                                    <label htmlFor="bedrooms" className={`mb-1 font-medium ${errors.bedrooms ? "text-primary" : "text-[#021526]"}`}>საძინებლების რაოდენობა *</label>
-                                    <input type="text" name="bedrooms" id="bedrooms" className={`border-[1px] ${errors.bedrooms ? "border-primary" : "border-[#808A93]"} rounded-md outline-none py-2 px-3 h-[2.625rem]`} />
+                                    <label htmlFor="bedrooms" className={`mb-1 font-medium ${errors.bedrooms ? "text-primary" : "text-[#021526] dark:text-white"}`}>საძინებლების რაოდენობა *</label>
+                                    <input type="text" name="bedrooms" id="bedrooms" className={`border-[1px] ${errors.bedrooms ? "border-primary" : "border-[#808A93] dark:border-zinc-600"} rounded-md outline-none py-2 px-3 h-[2.625rem]`} />
                                     {errors.bedrooms ? <span className="text-primary text-sm mt-1">{errors.bedrooms}</span> : <span className="flex gap-2 mt-1"><Image src={checkmark} alt="" />მხოლოდ რიცხვები</span>}
                                 </div>
                                 <div className="flex flex-col w-[50%]"></div>
                             </div>
                         </div>
                         <div className="flex flex-col w-full -mt-1">
-                            <label htmlFor="description" className={`mb-1 font-medium ${errors.description ? "text-primary" : "text-[#021526]"}`}>აღწერა *</label>
-                            <textarea id="description" name="description" className={`border-[1px] ${errors.description ? "border-primary" : "border-[#808A93]"} rounded-md outline-none py-2 px-3 h-[10rem] resize-none`} ></textarea>
+                            <label htmlFor="description" className={`mb-1 font-medium ${errors.description ? "text-primary" : "text-[#021526] dark:text-white"}`}>აღწერა *</label>
+                            <textarea id="description" name="description" className={`border-[1px] ${errors.description ? "border-primary" : "border-[#808A93] dark:border-zinc-600"} rounded-md outline-none py-2 px-3 h-[10rem] resize-none`} ></textarea>
                             {errors.description ? <span className="text-primary text-sm mt-1">{errors.description}</span> : <span className="flex gap-2 mt-1"><Image src={checkmark} alt="" />მინიმუმ 5 სიტყვა</span>}
                             
-                            <span className={`mb-2 mt-5 font-medium ${errors.image ? "text-primary" : "text-[#021526]"}`}>ატვირთეთ ფოტო *</span>
+                            <span className={`mb-2 mt-5 font-medium ${errors.image ? "text-primary" : "text-[#021526] dark:text-white"}`}>ატვირთეთ ფოტო *</span>
                             <label htmlFor="image" className={`custom-file-upload border-[2px] border-dashed ${errors.image ? "border-primary" : "border-[#2D3648]"}`}><Image src={preview ? preview : fileUpload} width={preview ? 100 : 24} height={preview ? 90 : 24}alt="" className="max-h-[90px] object-cover rounded-md"/></label>
                             <input 
                                 type="file" 
@@ -374,27 +374,27 @@ export default function ListingForm({regions, cities, agents}: ListingFormProps)
                     </div>
 
                     <div className="flex flex-col gap-6">
-                        <span className="text-[#1A1A1F] font-[500] text-xl">აგენტი</span>
+                        <span className="text-[#1A1A1F] dark:text-white font-[500] text-xl">აგენტი</span>
                         <div className="flex flex-col w-[50%]">
-                                <span className={`mb-1 font-medium ${errors.agent_id ? "text-primary" : "text-[#021526]"} select-none`}>აგენტი *</span>
-                                <div id="agent" className={`border-[1px] ${errors.agent_id ? "border-primary" : "border-[#808A93]"} rounded-md px-3 py-2 h-[2.625rem] relative cursor-pointer flex`} onClick={() => toggleDropDown("agent")}> 
+                                <span className={`mb-1 font-medium ${errors.agent_id ? "text-primary" : "text-[#021526] dark:text-white"} select-none`}>აგენტი *</span>
+                                <div id="agent" className={`border-[1px] ${errors.agent_id ? "border-primary" : "border-[#808A93] dark:border-zinc-600"} rounded-md px-3 py-2 h-[2.625rem] relative cursor-pointer flex`} onClick={() => toggleDropDown("agent")}> 
                                 <p>{selectedAgent != null ? selectedAgent.name+" "+selectedAgent.surname : "აირჩიე აგენტი"}</p>
                                 <Image src={downArrow} alt=""  className="ml-auto"/>
                                     {activeDropDown == "agent" && 
                                         <motion.div 
-                                        className="absolute bg-[#ffffff] select-none -bottom-0 translate-y-[100%] w-full rounded-md left-0 overflow-y-auto border-[1px] cursor-default border-[#808A93]"
+                                        className="absolute bg-[#ffffff] select-none -bottom-0 translate-y-[100%] w-full rounded-md left-0 overflow-y-auto border-[1px] cursor-default border-[#808A93] dark:border-zinc-600 dark:bg-[#0A0A0A]"
                                         id="region"
                                         variants={container}
                                         initial="hidden"
                                         animate="visible"
                                         >
-                                            <button className="border-[1px] w-full flex items-center px-2 py-3 gap-2 text-[#021526] border-b border-b-[#808A93]" onClick={(e) => {
+                                            <button className="border-b-[1px] w-full flex items-center px-2 py-3 gap-2 text-[#021526] dark:text-white border-b-[#808A93] dark:border-b-zinc-600 dark:bg-[#0A0A0A]" onClick={(e) => {
                                                 e.stopPropagation();
                                                 e.preventDefault(); 
                                                 setActive(!active)}}><Image src={fileUpload} alt="+" />დაამატე აგენტი</button>
                                             {agents.map((agent) => (
                                                 <motion.p key={agent.id} 
-                                                className="px-3 py-1 hover:bg-zinc-300"
+                                                className="px-3 py-1 hover:bg-zinc-300 dark:hover:bg-zinc-700"
                                                 variants={item}
                                                 onClick={() => handleAgentSelect(agent.name, agent.id, agent.surname, agent.avatar)}
                                                 >{agent.name} {agent.surname}</motion.p>
@@ -406,7 +406,7 @@ export default function ListingForm({regions, cities, agents}: ListingFormProps)
                     </div>
                 <div className="flex justify-end gap-5">
                     <Link href="/" className="border-[1px] border-primary hover:bg-primary hover:text-white text-primary px-4 py-[0.875rem] rounded-[10px]">გაუქმება</Link>
-                    <button type="submit" className="bg-primary hover:bg-primary-hover border-[1px] text-white px-4 py-[0.875rem] rounded-[10px]">დაამატე ლისტინგი</button>
+                    <button type="submit" className="bg-primary hover:bg-primary-hover border-[1px] text-white px-4 py-[0.875rem] rounded-[10px] dark:border-[#0A0A0A]">დაამატე ლისტინგი</button>
                 </div>
             </form>
         </>

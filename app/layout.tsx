@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/Header";
+import { ThemeProvider } from "next-themes";
 
 export const metadata: Metadata = {
   title: "Real Estates",
@@ -16,10 +17,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body>
-        <Header />
-        {children}
+    <html lang="en" suppressHydrationWarning>
+      <body className="dark:bg-[#0A0A0A] bg-white">
+        <ThemeProvider attribute="class" enableSystem>
+          <Header />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
