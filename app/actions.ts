@@ -21,6 +21,7 @@ export async function addListingAction(formData: FormData) {
   } catch (error) {
     console.log(error);
   } finally {
+    revalidatePath("/")
     redirect("/")
   }
 }
