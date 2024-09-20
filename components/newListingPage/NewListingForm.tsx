@@ -210,7 +210,7 @@ export default function ListingForm({regions, cities, agents}: ListingFormProps)
                     />
                 </div>
             }
-            <form className="text-[#021526] dark:text-white dark:text-white flex flex-col gap-20 w-full" onSubmit={handleSubmit}>
+            <form className="text-[#021526] dark:text-white  flex flex-col gap-20 w-full" onSubmit={handleSubmit}>
                 <input 
                     type="number"
                     name="agent_id"

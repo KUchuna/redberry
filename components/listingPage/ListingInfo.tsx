@@ -11,6 +11,8 @@ import phone from "@/public/assets/phone.svg"
 import back from "@/public/assets/back.svg"
 import Link from "next/link";
 import { deleteListingAction } from "@/app/actions";
+import { useState } from "react";
+import DeleteConfirmation from "./DeleteConfirmation";
 
 export default function ListingInfo({listing}: ListingInfoProps) {
 
@@ -25,6 +27,10 @@ export default function ListingInfo({listing}: ListingInfoProps) {
     async function handleDelete(id:number) {
         await deleteListingAction(id)
     }
+
+    const [active, setActive] = useState(false)
+    
+    const toggleModal = () => setActive(!active)
 
     return (
         <section className="py-20 px-40 w-full flex justify-start">
@@ -66,13 +72,20 @@ export default function ListingInfo({listing}: ListingInfoProps) {
                             </div>
                         </div>
                         <div className="mt-5">
-                            <button className="border border-[#676E76] text-[#808A93] hover:text-white hover:bg-[#808A93] rounded-[8px] p-[0.625rem]" onClick={() => handleDelete(listing.id)}>
+                            <button className="border border-[#676E76] text-[#808A93] hover:text-white hover:bg-[#808A93] rounded-[8px] p-[0.625rem]" onClick={() => setActive(!active)}>
                                 ლისტინგის წაშლა
                             </button>
                         </div>
                     </div>
                 </div>    
             </div>
+            {active && 
+                <DeleteConfirmation 
+                    onClose={toggleModal}
+                    handleDelete={handleDelete}
+                    id={listing.id}
+                />
+            }
         </section>
     )
 }
