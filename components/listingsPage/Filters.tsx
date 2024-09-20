@@ -113,6 +113,11 @@ export default function Filters({regions}: FiltersProps) {
     setBedrooms(searchParams.get('bedrooms'))
   }, [searchParams]);
 
+  useEffect(() => {
+    // Clear errors when the active filter changes
+    setErrors(null);
+  }, [activeFilter]);
+
   const handleMinPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setMinPrice(e.target.value);
   };
@@ -135,71 +140,82 @@ export default function Filters({regions}: FiltersProps) {
 
   const [errors, setErrors] = useState<{[key: string]: string } | null>({})
 
-const handleSubmit = (e: React.FormEvent) => {
-  
-  e.preventDefault();
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
 
-  const params = new URLSearchParams(searchParams.toString());
+    const params = new URLSearchParams(searchParams.toString());
 
-  const result = filterSchema.safeParse({ minPrice, maxPrice, minArea, maxArea });
+    const result = filterSchema.safeParse({ minPrice, maxPrice, minArea, maxArea });
 
-  if (!result.success) {
-    const fieldErrors: { [key: string]: string } = {};
-    result.error.errors.forEach((error) => {
+    if (!result.success) {
+      const fieldErrors: { [key: string]: string } = {};
+      result.error.errors.forEach((error) => {
         if (error.path[0]) {
-            fieldErrors[error.path[0]] = error.message;
+          fieldErrors[error.path[0]] = error.message;
         }
-    });
-    setErrors(fieldErrors);
-    return
-  }
+      });
+      try {
+        setMinPrice("")
+        setMaxPrice("")
+        setMinArea("")
+        setMaxArea("")
+      } finally {
+        setErrors(fieldErrors);
+      }
+      return;
+    }
 
 
-  if (selectedRegions.length > 0) {
-    params.set('regions', selectedRegions.join(','));
-  } else {
-    params.delete('regions');
-  }
 
-  if (minPrice) {
-    params.set('minPrice', minPrice);
-  } else {
-    params.delete('minPrice');
-  }
-  
-  if (maxPrice) {
-    params.set('maxPrice', maxPrice);
-  } else {
-    params.delete('maxPrice');
-  }
-  
-  if (maxArea) {
-    params.set('maxArea', maxArea);
-  } else {
-    params.delete('maxArea');
-  }
+    // Only apply parameters based on the active filter
+    if (activeFilter === "region") {
+        if (selectedRegions.length > 0) {
+            params.set('regions', selectedRegions.join(','));
+        } else {
+            params.delete('regions');
+        }
+    } else if (activeFilter === "price") {
+        if (minPrice) {
+            params.set('minPrice', minPrice);
+        } else {
+            params.delete('minPrice');
+        }
+        
+        if (maxPrice) {
+            params.set('maxPrice', maxPrice);
+        } else {
+            params.delete('maxPrice');
+        }
+    } else if (activeFilter === "area") {
+        if (minArea) {
+            params.set('minArea', minArea);
+        } else {
+            params.delete('minArea');
+        }
 
-  if (minArea) {
-    params.set('minArea', minArea);
-  } else {
-    params.delete('minArea');
-  }
-  
-  if (bedrooms) {
-    params.set('bedrooms', bedrooms);
-  } else {
-    params.delete('bedrooms');
-  }
+        if (maxArea) {
+            params.set('maxArea', maxArea);
+        } else {
+            params.delete('maxArea');
+        }
+    } else if (activeFilter === "bedrooms") {
+        if (bedrooms) {
+            params.set('bedrooms', bedrooms);
+        } else {
+            params.delete('bedrooms');
+        }
+    }
 
-  setActiveFilter(null)
-  router.replace(`?${params.toString()}`);
+    // Reset the active filter after submission
+    setActiveFilter(null);
+    router.replace(`?${params.toString()}`);
 };
 
 
 
     return (
       <div className="relative">
-        <ul className="flex border-[1px] border-[#DBDBDB] w-full p-[0.375rem] gap-6 rounded-[10px] select-none">
+        <ul className="flex border-[1px] border-[#DBDBDB] dark:border-zinc-600 w-full p-[0.375rem] gap-6 rounded-[10px] select-none">
           {filterItems.map((item) => (
             <li
               key={item.id}
@@ -211,7 +227,7 @@ const handleSubmit = (e: React.FormEvent) => {
               {activeFilter === item.id && (
                 <motion.div
                   layoutId="background"
-                  className="absolute inset-0 bg-[#F3F3F3] rounded-md -z-10"
+                  className="absolute inset-0 bg-[#F3F3F3] dark:bg-zinc-700 rounded-md -z-10"
                 />
               )}
             </li>
@@ -224,7 +240,7 @@ const handleSubmit = (e: React.FormEvent) => {
            initial="hidden"
            animate="visible"
            transition={{ duration: 0.3 }}
-           className="absolute left-0 mt-2 border p-4 w-fit rounded-[10px] z-20 bg-white"
+           className="absolute left-0 mt-2 border p-4 w-fit rounded-[10px] z-20 bg-white dark:bg-[#0A0A0A] dark:border-zinc-600 filter-container"
            onSubmit={handleSubmit}
          >
            <span className="font-bold text-lg">რეგიონის მიხედვით</span>
@@ -239,7 +255,7 @@ const handleSubmit = (e: React.FormEvent) => {
                     checked={selectedRegions.includes(region.id.toString())}
                     onChange={handleCheckboxChange}
                   />
-                 <label htmlFor={`region-${region.id}`} className="select-none text-[#021526]">
+                 <label htmlFor={`region-${region.id}`} className="select-none text-[#021526] dark:text-white">
                    {region.name}
                  </label>
                </div>
@@ -260,7 +276,7 @@ const handleSubmit = (e: React.FormEvent) => {
             animate="visible"
             transition={{ duration: 0.3 }}
             onSubmit={handleSubmit}
-            className="absolute left-0 mt-2 border p-4 w-fit rounded-[10px] z-20 bg-white"
+            className="absolute left-0 mt-2 border p-4 w-fit rounded-[10px] z-20 bg-white dark:bg-[#0A0A0A] dark:border-zinc-600 filter-container"
             >
                 <span className="font-bold text-lg">ფასის მიხედვით</span>
                   <div className="flex gap-4 py-6">
@@ -272,13 +288,13 @@ const handleSubmit = (e: React.FormEvent) => {
                             <span className="absolute text-primary w-full left-0 bottom-0 translate-y-[102%]">მინიმალური ფასი უნდა იყოს მაქსიმალურზე ნაკლები</span>
                           }
                       </div>
-                      <span className="text-[#021526] font-[500]">მინ. ფასი</span>
+                      <span className="text-[#021526] dark:text-white font-[500]">მინ. ფასი</span>
                       <ul className="flex flex-col gap-2 items-start">
-                        <li className="cursor-pointer" onClick={() => setMinPrice("50000")}>50,000 ₾</li>
-                        <li className="cursor-pointer" onClick={() => setMinPrice("100000")}>100,000 ₾</li>
-                        <li className="cursor-pointer" onClick={() => setMinPrice("150000")}>150,000 ₾</li>
-                        <li className="cursor-pointer" onClick={() => setMinPrice("200000")}>200,000 ₾</li>
-                        <li className="cursor-pointer" onClick={() => setMinPrice("300000")}>300,000 ₾</li>
+                        <li className="cursor-pointer" onClick={() => {setMinPrice("50000"), setErrors(null)}}>50,000 ₾</li>
+                        <li className="cursor-pointer" onClick={() => {setMinPrice("100000"), setErrors(null)}}>100,000 ₾</li>
+                        <li className="cursor-pointer" onClick={() => {setMinPrice("150000"), setErrors(null)}}>150,000 ₾</li>
+                        <li className="cursor-pointer" onClick={() => {setMinPrice("200000"), setErrors(null)}}>200,000 ₾</li>
+                        <li className="cursor-pointer" onClick={() => {setMinPrice("300000"), setErrors(null)}}>300,000 ₾</li>
                       </ul>
                     </div>
                     <div className="flex flex-col gap-6">
@@ -286,13 +302,13 @@ const handleSubmit = (e: React.FormEvent) => {
                           <input type="number" className="outline-none rounded-md" placeholder="მდე" onChange={handleMaxPriceChange} value={maxPrice}/>
                           ₾
                       </div>
-                      <span className="text-[#021526] font-[500]">მაქს. ფასი</span>
+                      <span className="text-[#021526] dark:text-white font-[500]">მაქს. ფასი</span>
                       <ul className="flex flex-col gap-2 items-start">
-                        <li className="cursor-pointer" onClick={() => setMaxPrice("50000")}>50,000 ₾</li>
-                        <li className="cursor-pointer" onClick={() => setMaxPrice("100000")}>100,000 ₾</li>
-                        <li className="cursor-pointer" onClick={() => setMaxPrice("150000")}>150,000 ₾</li>
-                        <li className="cursor-pointer" onClick={() => setMaxPrice("200000")}>200,000 ₾</li>
-                        <li className="cursor-pointer" onClick={() => setMaxPrice("300000")}>300,000 ₾</li>
+                        <li className="cursor-pointer" onClick={() => {setMaxPrice("50000"), setErrors(null)}}>50,000 ₾</li>
+                        <li className="cursor-pointer" onClick={() => {setMaxPrice("100000"), setErrors(null)}}>100,000 ₾</li>
+                        <li className="cursor-pointer" onClick={() => {setMaxPrice("150000"), setErrors(null)}}>150,000 ₾</li>
+                        <li className="cursor-pointer" onClick={() => {setMaxPrice("200000"), setErrors(null)}}>200,000 ₾</li>
+                        <li className="cursor-pointer" onClick={() => {setMaxPrice("300000"), setErrors(null)}}>300,000 ₾</li>
                       </ul>
                     </div>
                   </div>
@@ -308,7 +324,7 @@ const handleSubmit = (e: React.FormEvent) => {
             animate="visible"
             transition={{ duration: 0.3 }}
             onSubmit={handleSubmit}
-            className="absolute left-0 mt-2 border p-4 w-fit rounded-[10px] z-20 bg-white"
+            className="absolute left-0 mt-2 border p-4 w-fit rounded-[10px] z-20 bg-white dark:bg-[#0A0A0A] dark:border-zinc-600 filter-container"
             >
             <span className="font-bold text-lg">ფართობის მიხედვით</span>
                 <div className="flex gap-4 py-6">
@@ -320,7 +336,7 @@ const handleSubmit = (e: React.FormEvent) => {
                             <span className="absolute text-primary w-full left-0 bottom-0 translate-y-[102%]">მინიმალური ფართობი უნდა იყოს მაქსიმალურზე ნაკლები</span>
                           }
                       </div>
-                      <span className="text-[#021526] font-[500]">მინ. მ<sup>2</sup></span>
+                      <span className="text-[#021526] dark:text-white font-[500]">მინ. მ<sup>2</sup></span>
                       <ul className="flex flex-col gap-2 items-start">
                         <li className="cursor-pointer" onClick={() => setMinArea("40")}>40 მ<sup>2</sup></li>
                         <li className="cursor-pointer" onClick={() => setMinArea("80")}>80 მ<sup>2</sup></li>
@@ -334,7 +350,7 @@ const handleSubmit = (e: React.FormEvent) => {
                           <input type="number" className="outline-none rounded-md" placeholder="დან" onChange={handleMaxAreaChange} value={maxArea}/>
                           მ<sup>2</sup>
                       </div>
-                      <span className="text-[#021526] font-[500]">მაქს. მ<sup>2</sup></span>
+                      <span className="text-[#021526] dark:text-white font-[500]">მაქს. მ<sup>2</sup></span>
                       <ul className="flex flex-col gap-2 items-start">
                         <li className="cursor-pointer" onClick={() => setMaxArea("240")}>240 მ<sup>2</sup></li>
                         <li className="cursor-pointer" onClick={() => setMaxArea("280")}>280 მ<sup>2</sup></li>
@@ -355,7 +371,7 @@ const handleSubmit = (e: React.FormEvent) => {
             initial="hidden"
             animate="visible"
             transition={{ duration: 0.3 }}
-            className="absolute flex flex-col items-start gap-6 left-0 mt-2 border p-4 w-fit rounded-[10px] z-20 bg-white"
+            className="absolute flex flex-col items-start gap-6 left-0 mt-2 border p-4 w-fit rounded-[10px] z-20 bg-white dark:bg-[#0A0A0A] dark:border-zinc-600 filter-container"
             onSubmit={handleSubmit}
             >
             <span className="font-bold text-lg">საძინებლების რაოდენობა</span>

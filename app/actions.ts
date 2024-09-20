@@ -17,10 +17,11 @@ export async function addAgentAction(formData: FormData) {
 export async function addListingAction(formData: FormData) {
   try {
     await addListing(formData);
-    revalidatePath("/")
+    revalidatePath("/listings")
   } catch (error) {
     console.log(error);
   } finally {
+    revalidatePath("/")
     redirect("/")
   }
 }

@@ -1,3 +1,5 @@
+import { revalidatePath } from "next/cache";
+
 export async function addAgent(formData: FormData) {
   return await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/add-agent`, {
     method: 'POST',
@@ -40,6 +42,9 @@ export async function addListing(formData: FormData) {
   } catch (error) {
       console.error('Error:', error || error);
       throw error;
+  } finally {
+    revalidatePath("/listings")
+    revalidatePath("/")
   }
 }
 

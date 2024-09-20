@@ -1,5 +1,8 @@
 import { NextResponse } from 'next/server';
 
+export const revalidate = 0;
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
   try {
     const REDBERRY_API_TOKEN = process.env.REDBERRY_API_TOKEN;

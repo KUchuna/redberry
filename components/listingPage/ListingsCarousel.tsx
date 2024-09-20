@@ -41,7 +41,7 @@ export default function ListingsCarousel({listings}: ListingCardsSectionProps) {
             <div className="max-w-[1920px] flex flex-col justify-start items-start w-full gap-7 relative">
                 <h1 className="font-bold text-3xl">ბინები მსგავს ლოკაციაზე</h1>
                 <motion.button 
-                    className={`rounded-full p-[12px] absolute top-[50%] translate-y-[-50%] left-[-5%] z-10 ${prevBtnDisabled && "pointer-events-none"}`} 
+                    className={`rounded-full dark:bg-zinc-500 p-[12px] absolute top-[50%] translate-y-[-50%] left-[-5%] z-10 ${prevBtnDisabled && "pointer-events-none"}`} 
                     onClick={scrollPrev}
                     disabled={prevBtnDisabled}
                     whileHover={{background: "#808A93"}}
@@ -65,7 +65,7 @@ export default function ListingsCarousel({listings}: ListingCardsSectionProps) {
                     <p>მსგავსი სახლები არ მოიძებნა</p>
                 }
                 <motion.button 
-                        className={`rounded-full p-[12px] absolute top-[50%] translate-y-[-50%] right-[-5%] z-10 ${nextBtnDisabled && "pointer-events-none"}`} 
+                        className={`rounded-full p-[12px] absolute top-[50%] translate-y-[-50%] right-[-5%] dark:bg-zinc-500 z-10 ${nextBtnDisabled && "pointer-events-none"}`} 
                         onClick={scrollNext}
                         disabled={nextBtnDisabled}
                         whileHover={{background: "#808A93"}}

@@ -236,7 +236,7 @@ input[type="file"] {
     position: relative;
     width: 20px;
     height: 20px;
-    border: 1px solid #000000;
+    border: 1px solid #F93B1D;
     border-radius: 9999px;
     background-color: #ffffff;
     cursor: pointer;
@@ -254,7 +254,7 @@ input[type="file"] {
     height: 10px;
     margin: auto;
     border-radius: 9999px;
-    background-color: #000000;
+    background-color: #F93B1D;
 }
 
 #region {
@@ -455,3 +455,9 @@ border-radius: 50px;
   .dot:nth-child(13) {
     --uib-scale: 0.82;
   }
+
+
+  .filter-container {
+    box-shadow: 5px 5px 12px 0px #02152614;
+  }
+
