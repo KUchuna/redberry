@@ -103,7 +103,7 @@ export default function ListingShared({ regions, listings }: ListingSharedProps)
                       displayText != null && 
                         <button
                             key={key}
-                            className="border border-[#DBDBDB] rounded-[43px] px-[0.625rem] py-[0.375rem] flex gap-1 items-center text-[#021526CC]"
+                            className="border border-[#DBDBDB] rounded-[43px] px-[0.625rem] py-[0.375rem] flex gap-1 items-center text-[#021526CC] dark:text-white dark:border-zinc-600"
                         >
                             {displayText} <Image src={cross} alt="" onClick={() => handleClearFilter(key as keyof FiltersInterface)}/>
                         </button>
