@@ -11,6 +11,7 @@ This project is a real estate website built using **Next.js**, **TypeScript**, *
 - **Form Validation**: All forms in the project are validated using **Zod**. It ensures that the user inputs meet the required criteria (e.g., price and area validations), providing instant feedback.
 - **Image Carousels**: Property listings include beautiful carousels powered by **Embla Carousel**.
 - **State Management**: State-driven UI updates ensure real-time feedback without page reloads.
+- **Dark/light mode**: Users can select between preferable, dark or light modes.
   
 ## Tech Stack
 
