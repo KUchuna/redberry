@@ -1,14 +1,25 @@
 import { revalidatePath } from "next/cache";
 
 export async function addAgent(formData: FormData) {
-  return await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/add-agent`, {
-    method: 'POST',
-    body: formData,
-  })
-    .then(response => response.json())
-    .then(data => console.log(data))
-    .catch(error => console.error('Error:', error));
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/add-agent`, {
+      method: 'POST',
+      body: formData,
+    });
+
+    const data = await response.json();
+    console.log(data);
+    
+    return data;
+  } catch (error) {
+    console.error('Error:', error);
+    throw error;
+  } finally {
+    revalidatePath('/newlisting')
+    revalidatePath('/listing')
+  }
 }
+
 
 export async function addListing(formData: FormData) {
   try {
